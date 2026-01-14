@@ -1,1 +1,17 @@
+@import "tailwindcss";
 /* You can add global styles to this file, and also import other style files */
+:root {
+  scroll-behavior: smooth;
+  --primary-color: #06070E;
+  --text-color: #ffffff;
+  font-family: "Familjen Grotesk", sans-serif;
+}
+
+body {
+  font-weight: 400;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
