@@ -1,0 +1,24 @@
+
+.search-box {
+  position: relative; /* Container needs relative positioning */
+  width: 40%;
+
+  input {
+    border: .1rem solid #ccc;
+    border-radius: 5px;
+    padding-left: 10%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 100%;
+  }
+
+}
+
+.icon {
+  position: absolute; /* Position the icon relative to the container */
+  left: 2%;
+  top: 50%;
+  transform: translateY(-50%); /* Center the icon vertically */
+  width: 20px; /* Adjust size as needed */
+  height: auto;
+}
