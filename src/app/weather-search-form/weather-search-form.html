@@ -1,0 +1,36 @@
+<div class="search-box">
+  <input type="text" placeholder="Search City" class="form-control" required
+         [(ngModel)]="searchQuery" name="searchQuery" (focus)="onFocus()" (blur)="onBlur()">
+  <span class="pi pi-search icon"></span>
+  @if (results().length > 0 && isFocused()) {
+    <div class="results-dropdown">
+      @for (location of results(); track location.id) {
+        <div class="items" (mousedown)="onSelect(location)">
+          <h3>{{ location.name }}</h3>
+          <h4>{{ location.country }}</h4>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+
+<!--
+        {
+            "id": 2643743,
+            "name": "London",
+            "latitude": 51.50853,
+            "longitude": -0.12574,
+            "elevation": 25.0,
+            "feature_code": "PPLC",
+            "country_code": "GB",
+            "admin1_id": 6269131,
+            "admin2_id": 2648110,
+            "timezone": "Europe/London",
+            "population": 8961989,
+            "country_id": 2635167,
+            "country": "United Kingdom",
+            "admin1": "England",
+            "admin2": "Greater London"
+        },
+-->
