@@ -1,6 +1,8 @@
 @let currentWeatherRes = currentWeather();
+@let hourlyData = hourlyDataPoints();
 
 @if (currentWeatherRes) {
+  <!--TODO: consider, COULD move to its own component; add wind speed to summary-->
   <app-card-ui-component class="mx-8">
     <div card-heading>
       <div class="flex justify-between">
@@ -44,19 +46,30 @@
   </app-card-ui-component>
 }
 
-<app-card-ui-component>
-  <div card-heading>
-    <div class="flex justify-between">
-      <p>Hourly Weather</p>
+@if (hourlyData.length > 0) {
+  <app-card-ui-component>
+    <div card-heading>
+      <div class="flex justify-between">
+        <p>Hourly Weather</p>
+      </div>
     </div>
-  </div>
-  <div card-body class="flex flex-row">
-    <!--TODO: WRAP IN CAROUSEL-->
-
-    <app-carousel-ui-component [timestamp]="date().getTime().toString()" [weatherIcon]="'3'"/>
-    <app-carousel-ui-component [weatherIcon]="'3'"/>
-    <app-carousel-ui-component [weatherIcon]="'3'"/>
-    <app-carousel-ui-component [weatherIcon]="'3'" [rainChance]="65"/>
-    <app-carousel-ui-component [weatherIcon]="'3'"/>
-  </div>
-</app-card-ui-component>
+    <div card-body>
+      <p-carousel [value]="hourlyDataPoints()" [numVisible]="8" [numScroll]="1" [circular]="false">
+        <ng-template let-hourlyDataPoint #item>
+          <app-carousel-ui-component [timestamp]="getTimestamp(hourlyDataPoint.time)"
+                                     [temperature]="hourlyDataPoint.temperature"
+                                     [rainChance]="hourlyDataPoint.precipitation_probability"
+                                     [rainUnits]="hourlyDataPoint.precipitation_probability_units"
+                                     [weatherIcon]="'3'"/>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </app-card-ui-component>
+}
+<div class="grid grid-cols-3 gap-6">
+  <p>INSERT DAILY TABLE OF FORECASTS. MAKE USE OF DAILY ARG to api</p>
+  <p>CAN USE this endpoint to gather general uv info for this section</p>
+  <p>HUMIDITY</p>
+  <p>DEW POINT</p>
+  <p>VISIBILITY</p>
+</div>

@@ -1,12 +1,14 @@
 import {Component, computed, inject, signal} from '@angular/core';
 import {CardUiComponent} from '../ui/card-ui-component/card-ui-component';
-import {DatePipe, JsonPipe, NgOptimizedImage} from '@angular/common';
+import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {CarouselUiComponent} from '../ui/carousel-ui-component/carousel-ui-component';
 import {mapToIcon} from '../shared/icon.util';
 import {ActivatedRoute} from '@angular/router';
 import {filter, map, switchMap} from 'rxjs';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import {WeatherInfo} from '../services/weather-info';
+import {transformHourlyData} from '../model/hourly.weather.model';
+import {Carousel} from 'primeng/carousel';
 
 @Component({
   selector: 'app-weather-details',
@@ -15,7 +17,7 @@ import {WeatherInfo} from '../services/weather-info';
     DatePipe,
     CarouselUiComponent,
     NgOptimizedImage,
-    JsonPipe
+    Carousel
   ],
   templateUrl: './weather-details.html',
   styleUrl: './weather-details.scss',
@@ -40,7 +42,7 @@ export class WeatherDetails {
   readonly latitude = toSignal(this.latitude$, {initialValue: ''});
   readonly longitude = toSignal(this.longitude$, {initialValue: ''});
 
-  private weather$ = toObservable(
+  private currentWeather$ = toObservable(
     computed(() => ({lat: this.latitude(), lng: this.longitude()}))
   ).pipe(
     filter(coords => coords.lat != null && coords.lng != null),
@@ -52,22 +54,22 @@ export class WeatherDetails {
   DERIVED STATED FROM RESPONSE
   ================================
    */
-  readonly currentWeather = toSignal(this.weather$, {initialValue: null});
+  readonly currentWeather = toSignal(this.currentWeather$, {initialValue: null});
   readonly timestamp = computed(() => {
     const weather = this.currentWeather();
     if (weather == null) return '';
     const time = weather.current.time;
-    return time.slice(time.indexOf('T') + 1, time.length);
+    return this.getTimestamp(time);
   });
   readonly currentTemperature = computed(() => {
     const weather = this.currentWeather();
     if (weather == null) return 0;
-    return weather.current.temperature_2m;
+    return Math.round(weather.current.temperature_2m);
   });
   readonly apparentTemperature = computed(() => {
     const weather = this.currentWeather();
     if (weather == null) return 0;
-    return weather.current.apparent_temperature;
+    return Math.round(weather.current.apparent_temperature);
   });
   readonly currentTemperatureUnit = computed(() => {
     const weather = this.currentWeather();
@@ -86,7 +88,28 @@ export class WeatherDetails {
     return weather.current_units.rain;
   });
 
-  readonly weatherIcon = computed(() => {
-  })
+  /*
+  HOURLY WEATHER
+   */
+  private hourlyWeather$ = toObservable(
+    computed(() => ({lat: this.latitude(), lng: this.longitude()}))
+  ).pipe(
+    filter(coords => coords.lat != null && coords.lng != null),
+    switchMap(coords => this.#service.getHourlyWeatherInfo(coords.lat, coords.lng))
+  );
 
+  readonly hourlyWeather = toSignal(this.hourlyWeather$, {initialValue: null});
+
+  hourlyDataPoints = computed(() => {
+    const hourlyData = this.hourlyWeather();
+    if (hourlyData == null) return [];
+    return transformHourlyData(hourlyData);
+  });
+
+  /*
+  HELPERS
+   */
+  getTimestamp(time: string) {
+    return time.slice(time.indexOf('T') + 1, time.length);
+  }
 }
