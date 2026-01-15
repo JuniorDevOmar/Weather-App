@@ -1,39 +1,9 @@
-<app-card-ui-component class="mx-8">
-  <div card-heading>
-    <div class="flex justify-between">
-      <p>Current Weather</p>
-      <p>{{ date() | date:'mediumDate' }}</p>
-    </div>
+<p>HOME COMPONENT GRID IDEA</p>
+<div class="grid grid-cols-2">
+  <div class="grid grid-cols-4 items-center border-2 border-gray-300 rounded-lg p-4">
+    <h1 class="col-span-2">London</h1>
+    <p>INSERT ICON</p>
+    <p>INSERT TEMPERATURE</p>
   </div>
-  <div card-body class="flex">
-    <div class="flex items-center w-1/2">
-      <img
-        ngSrc="./assets/weather-icons/weather-icons-master/production/fill/all/{{mapToIcon('3')}}"
-        alt="sunny" width="200"
-        height="200"/>
-      <p>INSERT TEMPERATURE</p>
-    </div>
-    <div class="w-1/2">
-      <p>INSERT WEATHER CODE STRING</p>
-      <p>INSERT HIGH LOW VALUES</p>
-      <p>INSERT SOME SUMMARY STUFF</p>
-    </div>
-  </div>
-</app-card-ui-component>
 
-<app-card-ui-component>
-  <div card-heading>
-    <div class="flex justify-between">
-      <p>Hourly Weather</p>
-    </div>
-  </div>
-  <div card-body class="flex flex-row">
-    <!--TODO: WRAP IN CAROUSEL-->
-
-    <app-carousel-ui-component [timestamp]="date().getTime().toString()" ] [weatherIcon]="'3'"/>
-    <app-carousel-ui-component [weatherIcon]="'3'"/>
-    <app-carousel-ui-component [weatherIcon]="'3'"/>
-    <app-carousel-ui-component [weatherIcon]="'3'" [rainChance]="65"/>
-    <app-carousel-ui-component [weatherIcon]="'3'"/>
-  </div>
-</app-card-ui-component>
+</div>

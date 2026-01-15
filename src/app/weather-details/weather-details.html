@@ -1,0 +1,62 @@
+@let currentWeatherRes = currentWeather();
+
+@if (currentWeatherRes) {
+  <app-card-ui-component class="mx-8">
+    <div card-heading>
+      <div class="flex justify-between">
+        <p>Current Weather</p>
+        <p>{{ date() | date:'mediumDate' }}, {{ timestamp() }}</p>
+      </div>
+    </div>
+    <div card-body class="flex">
+      <div class="flex items-center w-1/2">
+        <img
+          ngSrc="./assets/weather-icons/weather-icons-master/production/fill/all/{{mapToIcon('3')}}"
+          alt="sunny" width="200"
+          height="200"/>
+        <div class="flex flex-col ml-8">
+          <h1>{{ currentTemperature() }}{{ currentTemperatureUnit() }}</h1>
+          <h1>Feels like: {{ apparentTemperature() }}{{ currentTemperatureUnit() }}</h1>
+        </div>
+      </div>
+      <div class="w-1/2">
+        <p>INSERT WEATHER CODE STRING</p>
+        <div class="flex ">
+          <div class="flex items-center">
+            <img
+              ngSrc="./assets/weather-icons/weather-icons-master/production/fill/all/pressure-high.svg"
+              alt="sunny" width="100" height="100">
+            <p>INSERT HIGH FOR DAY</p>
+          </div>
+          <div class="flex items-center">
+            <h1 class="strong">/ INSERT SLASH</h1>
+          </div>
+          <div class="flex items-center">
+            <img
+              ngSrc="./assets/weather-icons/weather-icons-master/production/fill/all/pressure-low.svg"
+              alt="sunny" width="100" height="100">
+            <p>INSERT LOW FOR DAY</p>
+          </div>
+        </div>
+        <p>Rain: {{ rainChance() }}{{ rainUnit() }}</p>
+      </div>
+    </div>
+  </app-card-ui-component>
+}
+
+<app-card-ui-component>
+  <div card-heading>
+    <div class="flex justify-between">
+      <p>Hourly Weather</p>
+    </div>
+  </div>
+  <div card-body class="flex flex-row">
+    <!--TODO: WRAP IN CAROUSEL-->
+
+    <app-carousel-ui-component [timestamp]="date().getTime().toString()" [weatherIcon]="'3'"/>
+    <app-carousel-ui-component [weatherIcon]="'3'"/>
+    <app-carousel-ui-component [weatherIcon]="'3'"/>
+    <app-carousel-ui-component [weatherIcon]="'3'" [rainChance]="65"/>
+    <app-carousel-ui-component [weatherIcon]="'3'"/>
+  </div>
+</app-card-ui-component>

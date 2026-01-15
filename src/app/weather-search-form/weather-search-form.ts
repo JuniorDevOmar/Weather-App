@@ -13,9 +13,10 @@ import {City} from '../model/geocode';
   styleUrl: './weather-search-form.scss',
 })
 export class WeatherSearchForm {
-  searchQuery = signal('');
-  onSearch = output<string>();
   results = input<City[]>([]);
+  onSearch = output<string>();
+  onSelected = output<City>();
+  searchQuery = signal('');
 
   isFocused = signal<boolean>(false);
 
@@ -39,8 +40,8 @@ export class WeatherSearchForm {
     });
   }
 
-  onSelect(location: any) {
-    console.log(`Selected ${location.name}`)
+  onSelect(location: City) {
+    this.onSelected.emit(location);
   }
 
   onFocus(): void {
