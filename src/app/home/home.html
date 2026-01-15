@@ -27,13 +27,13 @@
       <p>Hourly Weather</p>
     </div>
   </div>
-  <div card-body class="flex">
-    <div class="w-full">
-      <img
-        ngSrc="./assets/weather-icons/weather-icons-master/production/fill/all/{{mapToIcon('3')}}"
-        alt="sunny" width="200"
-        height="200"/>
-      <!--      INSERT CAROUSEL-->
-    </div>
+  <div card-body class="flex flex-row">
+    <!--TODO: WRAP IN CAROUSEL-->
+
+    <app-carousel-ui-component [timestamp]="date().getTime().toString()" ] [weatherIcon]="'3'"/>
+    <app-carousel-ui-component [weatherIcon]="'3'"/>
+    <app-carousel-ui-component [weatherIcon]="'3'"/>
+    <app-carousel-ui-component [weatherIcon]="'3'" [rainChance]="65"/>
+    <app-carousel-ui-component [weatherIcon]="'3'"/>
   </div>
 </app-card-ui-component>

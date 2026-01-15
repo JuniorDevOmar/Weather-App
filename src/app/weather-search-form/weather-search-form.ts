@@ -2,6 +2,7 @@ import {Component, effect, input, output, signal, untracked} from '@angular/core
 import {FormsModule} from "@angular/forms";
 import {debounceTime, distinctUntilChanged} from 'rxjs';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
+import {City} from '../model/geocode';
 
 @Component({
   selector: 'app-weather-search-form',
@@ -14,7 +15,7 @@ import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 export class WeatherSearchForm {
   searchQuery = signal('');
   onSearch = output<string>();
-  results = input<any[]>([]);
+  results = input<City[]>([]);
 
   isFocused = signal<boolean>(false);
 
