@@ -1,6 +1,6 @@
 import {Component, input} from '@angular/core';
 import {NgOptimizedImage, NgTemplateOutlet} from '@angular/common';
-import {mapToIcon} from '../../shared/icon.util';
+import {mapToWeatherIcon} from '../../shared/icon.util';
 
 @Component({
   selector: 'app-carousel-ui-component',
@@ -17,5 +17,5 @@ export class CarouselUiComponent {
   rainUnits = input.required<string>();
   weatherIcon = input<string>('0');
   temperature = input.required<number>();
-  protected readonly mapToIcon = mapToIcon;
+  protected readonly mapToIcon = mapToWeatherIcon;
 }

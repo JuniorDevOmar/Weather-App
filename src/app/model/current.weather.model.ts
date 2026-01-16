@@ -3,6 +3,8 @@ export interface CurrentWeatherUnits {
   interval: string;
   temperature_2m: string;
   relative_humidity_2m: string;
+  dew_point_2m: string;
+  visibility: string
   apparent_temperature: string;
   is_day: string;
   precipitation: string;
@@ -23,6 +25,8 @@ export interface CurrentWeather {
   interval: number;
   temperature_2m: number;
   relative_humidity_2m: number;
+  dew_point_2m: number;
+  visibility: number;
   apparent_temperature: number;
   is_day: number;
   precipitation: number;

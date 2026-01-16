@@ -1,14 +1,15 @@
 import {Component, computed, inject, signal} from '@angular/core';
 import {CardUiComponent} from '../ui/card-ui-component/card-ui-component';
-import {DatePipe, NgOptimizedImage} from '@angular/common';
+import {DatePipe, NgOptimizedImage, NgStyle} from '@angular/common';
 import {CarouselUiComponent} from '../ui/carousel-ui-component/carousel-ui-component';
-import {mapToIcon} from '../shared/icon.util';
+import {mapToIcon, mapToWeatherIcon, mapUVIndexToIcon} from '../shared/icon.util';
 import {ActivatedRoute} from '@angular/router';
 import {filter, map, switchMap} from 'rxjs';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import {WeatherInfo} from '../services/weather-info';
 import {transformHourlyData} from '../model/hourly.weather.model';
 import {Carousel} from 'primeng/carousel';
+import {convertToKm} from '../shared/function.util';
 
 @Component({
   selector: 'app-weather-details',
@@ -17,7 +18,8 @@ import {Carousel} from 'primeng/carousel';
     DatePipe,
     CarouselUiComponent,
     NgOptimizedImage,
-    Carousel
+    Carousel,
+    NgStyle
   ],
   templateUrl: './weather-details.html',
   styleUrl: './weather-details.scss',
@@ -27,7 +29,6 @@ export class WeatherDetails {
   readonly #service: WeatherInfo = inject(WeatherInfo);
   readonly #date = signal(new Date());
   date = computed(() => this.#date());
-  protected readonly mapToIcon = mapToIcon;
 
   latitude$ = this.#route.queryParamMap.pipe(
     map(params => params.get('latitude')),
@@ -81,13 +82,66 @@ export class WeatherDetails {
     if (weather == null) return 0;
     return weather.current.rain;
   });
-
   readonly rainUnit = computed(() => {
     const weather = this.currentWeather();
     if (weather == null) return '';
     return weather.current_units.rain;
   });
-
+  readonly relativeHumidity = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return 0;
+    return weather.current.relative_humidity_2m;
+  })
+  readonly relativeHumidityUnit = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return '';
+    return weather.current_units.relative_humidity_2m;
+  })
+  readonly visibility = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return 0;
+    return weather.current.visibility;
+  })
+  readonly visibilityUnit = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return '';
+    return weather.current_units.visibility;
+  })
+  readonly windSpeed = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return 0;
+    return weather.current.wind_speed_10m;
+  })
+  readonly windSpeedUnit = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return '';
+    return weather.current_units.wind_speed_10m;
+  })
+  readonly windSpeedDirection = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return '';
+    return weather.current.wind_direction_10m;
+  });
+  readonly pressure = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return 0;
+    return weather.current.pressure_msl;
+  });
+  readonly pressureUnit = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return '';
+    return weather.current_units.pressure_msl;
+  });
+  readonly dewPoint = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return 0;
+    return Math.round(weather.current.dew_point_2m);
+  })
+  readonly dewPointUnit = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return '';
+    return weather.current_units.dew_point_2m;
+  })
   /*
   HOURLY WEATHER
    */
@@ -107,9 +161,41 @@ export class WeatherDetails {
   });
 
   /*
+  AIR QUALITY
+   */
+  private airQuality$ = toObservable(
+    computed(() => ({latitude: this.latitude(), longitude: this.longitude()}))
+  ).pipe(
+    filter(coords => coords.latitude != null && coords.longitude != null),
+    switchMap(coords => this.#service.getAirQualityInfo(coords.latitude, coords.longitude))
+  );
+
+  airQuality = toSignal(this.airQuality$, {initialValue: null});
+
+  uvIndex = computed(() => {
+    const airQuality = this.airQuality();
+    if (airQuality == null) return 0;
+    return airQuality.current.uv_index;
+  });
+  roundedUvIndex = computed(() => Math.round(this.uvIndex()));
+
+  /*
   HELPERS
    */
   getTimestamp(time: string) {
     return time.slice(time.indexOf('T') + 1, time.length);
   }
+
+  getWindRotation() {
+    return {
+      'transform': `rotate(${this.windSpeedDirection()}deg)`,
+      'display': 'inline-block',
+      'transition': 'transform 0.5s ease'
+    };
+  }
+
+  protected readonly mapUVIndexToIcon = mapUVIndexToIcon;
+  protected readonly mapToWeatherIcon = mapToWeatherIcon;
+  protected readonly mapToIcon = mapToIcon;
+  protected readonly convertToKm = convertToKm;
 }
