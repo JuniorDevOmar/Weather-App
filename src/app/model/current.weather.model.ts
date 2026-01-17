@@ -1,3 +1,13 @@
+export interface WeatherResponse {
+  latitude: number;
+  longitude: number;
+  generationtime_ms: number;
+  utc_offset_seconds: number;
+  timezone: string;
+  timezone_abbreviation: string;
+  elevation: number;
+}
+
 export interface CurrentWeatherUnits {
   time: string;
   interval: string;
@@ -42,14 +52,7 @@ export interface CurrentWeather {
   wind_gusts_10m: number;
 }
 
-export interface CurrentWeatherResponse {
-  latitude: number;
-  longitude: number;
-  generationtime_ms: number;
-  utc_offset_seconds: number;
-  timezone: string;
-  timezone_abbreviation: string;
-  elevation: number;
+export interface CurrentWeatherResponse extends WeatherResponse {
   current_units: CurrentWeatherUnits;
   current: CurrentWeather;
 }

@@ -1,3 +1,5 @@
+import {WeatherResponse} from './current.weather.model';
+
 export interface AirQualityUnits {
   time: string;
   interval: string;
@@ -30,14 +32,7 @@ export interface CurrentAirQuality {
   aerosol_optical_depth: number;
 }
 
-export interface AirQualityResponse {
-  latitude: number;
-  longitude: number;
-  generationtime_ms: number;
-  utc_offset_seconds: number;
-  timezone: string;
-  timezone_abbreviation: string;
-  elevation: number;
+export interface AirQualityResponse extends WeatherResponse {
   current_units: AirQualityUnits;
   current: CurrentAirQuality;
 }

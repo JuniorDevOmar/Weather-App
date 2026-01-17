@@ -1,6 +1,7 @@
-import {Component, input} from '@angular/core';
+import {Component, computed, input} from '@angular/core';
 import {NgOptimizedImage, NgTemplateOutlet} from '@angular/common';
-import {mapToWeatherIcon} from '../../shared/icon.util';
+import {mapToIcon, mapToWeatherIcon} from '../../shared/icon.util';
+import {HourlyDataPoint} from '../../model/hourly.weather.model';
 
 @Component({
   selector: 'app-carousel-ui-component',
@@ -13,9 +14,15 @@ import {mapToWeatherIcon} from '../../shared/icon.util';
 })
 export class CarouselUiComponent {
   timestamp = input.required<string>();
-  rainChance = input.required<number>();
-  rainUnits = input.required<string>();
-  weatherIcon = input<string>('0');
-  temperature = input.required<number>();
-  protected readonly mapToIcon = mapToWeatherIcon;
+  data = input.required<HourlyDataPoint>();
+
+  /*
+  DERIVED STATE
+   */
+  temperature = computed(() => Math.round(this.data().temperature));
+  rainChance = computed(() => this.data().precipitation_probability);
+  rainUnits = computed(() => this.data().precipitation_probability_units);
+  weatherCode = computed(() => this.data().weatherCode);
+  isDay = computed(() => this.data().isDay);
+  protected readonly mapToWeatherIcon = mapToWeatherIcon;
 }

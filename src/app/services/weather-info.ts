@@ -22,7 +22,7 @@ export class WeatherInfo {
   readonly #httpClient = inject(HttpClient);
   readonly #currentWeatherUrl: string = "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&timezone=auto&current=relative_humidity_2m&current=visibility,temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,pressure_msl,surface_pressure,wind_speed_10m,wind_direction_10m,wind_gusts_10m"
   // TODO: [consider] a filter to let them increase the range of future forecasts
-  readonly #hourlyWeatherUrl: string = "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&timezone=auto&forecast_days=1&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,precipitation,rain,showers,snowfall,snow_depth,weather_code,visibility,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m"
+  readonly #hourlyWeatherUrl: string = "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&timezone=auto&forecast_days=1&hourly=temperature_2m,is_day,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,precipitation,rain,showers,snowfall,snow_depth,weather_code,visibility,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m"
   readonly #geocoding_url: string = `https://geocoding-api.open-meteo.com/v1/search?name=`;
   readonly #airquality_url: string = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude={latitude}&longitude={longitude}&current=uv_index,european_aqi,us_aqi,pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone,ammonia,uv_index_clear_sky,dust,aerosol_optical_depth';
 

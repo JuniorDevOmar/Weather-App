@@ -1,17 +1,15 @@
 //TODO: complete mappings; clean up and only include used assets
 const allIcons = `./assets/weather-icons/weather-icons-master/production/fill/all`;
+const openWeatherIcons = `./assets/weather-icons/weather-icons-master/production/fill/openweathermap`;
 
-export function mapToWeatherIcon(key: string) {
-  const icons = {
-    0: 'clear-day.svg',
-    3: 'cloudy.svg',
-  } as { [key: string]: string }
-  return icons[key] || 'clear-day.svg';
+export function mapToWeatherIcon(code: number, isDay: number) {
+  return `${openWeatherIcons}/${code > 9 ? code : `0${code}`}${isDay ? 'd' : 'n'}.svg`;
 }
 
 export function mapToIcon(key: string) {
   const icons = {
     'humidity': 'humidity.svg',
+    'cloudy': 'cloudy.svg',
   } as { [key: string]: string; }
   return `${allIcons}/${icons[key] || 'clear-day.svg'}`;
 }

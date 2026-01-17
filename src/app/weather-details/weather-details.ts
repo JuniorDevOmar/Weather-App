@@ -62,6 +62,16 @@ export class WeatherDetails {
     const time = weather.current.time;
     return this.getTimestamp(time);
   });
+  readonly isDay = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return 0;
+    return weather.current.is_day;
+  });
+  readonly weatherCode = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return 0;
+    return weather.current.weather_code;
+  });
   readonly currentTemperature = computed(() => {
     const weather = this.currentWeather();
     if (weather == null) return 0;
@@ -122,6 +132,16 @@ export class WeatherDetails {
     if (weather == null) return '';
     return weather.current.wind_direction_10m;
   });
+  readonly windGusts = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return 0;
+    return weather.current.wind_gusts_10m;
+  })
+  readonly windGustsUnit = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return '';
+    return weather.current_units.wind_gusts_10m;
+  })
   readonly pressure = computed(() => {
     const weather = this.currentWeather();
     if (weather == null) return 0;
@@ -141,6 +161,16 @@ export class WeatherDetails {
     const weather = this.currentWeather();
     if (weather == null) return '';
     return weather.current_units.dew_point_2m;
+  })
+  readonly cloudCover = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return 0;
+    return weather.current.cloud_cover;
+  });
+  readonly cloudCoverUnit = computed(() => {
+    const weather = this.currentWeather();
+    if (weather == null) return '';
+    return weather.current_units.cloud_cover;
   })
   /*
   HOURLY WEATHER

@@ -1,6 +1,9 @@
+import {WeatherResponse} from './current.weather.model';
+
 export interface HourlyWeatherUnits {
   time: string;
   temperature_2m: string;
+  is_day: string;
   relative_humidity_2m: string;
   dew_point_2m: string;
   apparent_temperature: string;
@@ -21,6 +24,7 @@ export interface HourlyWeatherUnits {
 export interface HourlyWeatherData {
   time: string[];
   temperature_2m: number[];
+  is_day: number[];
   relative_humidity_2m: number[];
   dew_point_2m: number[];
   apparent_temperature: number[];
@@ -38,14 +42,7 @@ export interface HourlyWeatherData {
   wind_gusts_10m: number[];
 }
 
-export interface HourlyWeatherResponse {
-  latitude: number;
-  longitude: number;
-  generationtime_ms: number;
-  utc_offset_seconds: number;
-  timezone: string;
-  timezone_abbreviation: string;
-  elevation: number;
+export interface HourlyWeatherResponse extends WeatherResponse {
   hourly_units: HourlyWeatherUnits;
   hourly: HourlyWeatherData;
 }
@@ -58,17 +55,21 @@ HELPERS
 export interface HourlyDataPoint {
   time: string;
   temperature: number;
+  isDay: number;
   humidity: number;
   apparentTemperature: number;
   precipitation: number;
   weatherCode: number;
   windSpeed: number;
+  precipitation_probability: number;
+  precipitation_probability_units: string;
 }
 
 export function transformHourlyData(response: HourlyWeatherResponse): HourlyDataPoint[] {
   return response.hourly.time.map((time, index) => ({
     time,
     temperature: Math.round(response.hourly.temperature_2m[index]),
+    isDay: response.hourly.is_day[index],
     humidity: response.hourly.relative_humidity_2m[index],
     apparentTemperature: Math.round(response.hourly.apparent_temperature[index]),
     precipitation: response.hourly.precipitation[index],
