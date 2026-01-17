@@ -9,7 +9,9 @@ import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import {WeatherInfo} from '../services/weather-info';
 import {transformHourlyData} from '../model/hourly.weather.model';
 import {Carousel} from 'primeng/carousel';
-import {convertToKm} from '../shared/function.util';
+import {convertToKm, getWindRotation} from '../shared/function.util';
+import {transformDailyData} from '../model/daily.weather.model';
+import {getWeatherDescription} from '../shared/description.util';
 
 @Component({
   selector: 'app-weather-details',
@@ -42,13 +44,12 @@ export class WeatherDetails {
 
   readonly latitude = toSignal(this.latitude$, {initialValue: ''});
   readonly longitude = toSignal(this.longitude$, {initialValue: ''});
+  readonly coordinates = computed(() => ({lat: this.latitude(), lng: this.longitude()}));
 
-  private currentWeather$ = toObservable(
-    computed(() => ({lat: this.latitude(), lng: this.longitude()}))
-  ).pipe(
-    filter(coords => coords.lat != null && coords.lng != null),
-    switchMap(coords => this.#service.getCurrentWeatherInfo(coords.lat, coords.lng))
-  );
+  private currentWeather$ = toObservable(this.coordinates)
+    .pipe(filter(coords => coords.lat != null && coords.lng != null),
+      switchMap(coords => this.#service.getCurrentWeatherInfo(coords.lat, coords.lng))
+    );
 
   /*
   ================================
@@ -129,7 +130,7 @@ export class WeatherDetails {
   })
   readonly windSpeedDirection = computed(() => {
     const weather = this.currentWeather();
-    if (weather == null) return '';
+    if (weather == null) return 0;
     return weather.current.wind_direction_10m;
   });
   readonly windGusts = computed(() => {
@@ -173,14 +174,42 @@ export class WeatherDetails {
     return weather.current_units.cloud_cover;
   })
   /*
+  DAILY WEATHER
+   */
+  private dailyWeather$ = toObservable(this.coordinates)
+    .pipe(filter(coords => coords.lat != null && coords.lng != null),
+      switchMap(coords => this.#service.getDailyWeatherInfo(coords.lat, coords.lng))
+    );
+  readonly dailyWeather = toSignal(this.dailyWeather$, {initialValue: null});
+  readonly dailyDataPoints = computed(() => {
+    const dailyWeather = this.dailyWeather();
+    if (dailyWeather == null) return [];
+    return transformDailyData(dailyWeather);
+  });
+  readonly currentDayDataPoint = computed(() => {
+      const date = this.#date().toISOString().slice(0, this.#date().toISOString().indexOf('T'));
+      console.log(date);
+      return this.dailyDataPoints().find(datapoint => datapoint.date == date)
+    }
+  );
+  readonly currentDayMax = computed(() => {
+    const today = this.currentDayDataPoint();
+    if (today == null) return 0;
+    return today.tempMax;
+  });
+  readonly currentDayMin = computed(() => {
+    const today = this.currentDayDataPoint();
+    if (today == null) return 0;
+    return today.tempMin;
+  })
+
+  /*
   HOURLY WEATHER
    */
-  private hourlyWeather$ = toObservable(
-    computed(() => ({lat: this.latitude(), lng: this.longitude()}))
-  ).pipe(
-    filter(coords => coords.lat != null && coords.lng != null),
-    switchMap(coords => this.#service.getHourlyWeatherInfo(coords.lat, coords.lng))
-  );
+  private hourlyWeather$ = toObservable(this.coordinates)
+    .pipe(filter(coords => coords.lat != null && coords.lng != null),
+      switchMap(coords => this.#service.getHourlyWeatherInfo(coords.lat, coords.lng))
+    );
 
   readonly hourlyWeather = toSignal(this.hourlyWeather$, {initialValue: null});
 
@@ -216,16 +245,14 @@ export class WeatherDetails {
     return time.slice(time.indexOf('T') + 1, time.length);
   }
 
-  getWindRotation() {
-    return {
-      'transform': `rotate(${this.windSpeedDirection()}deg)`,
-      'display': 'inline-block',
-      'transition': 'transform 0.5s ease'
-    };
-  }
+  summary = computed(() => {
+    return 'Chance of rain: ' + this.rainChance() + '%'
+  });
 
   protected readonly mapUVIndexToIcon = mapUVIndexToIcon;
   protected readonly mapToWeatherIcon = mapToWeatherIcon;
   protected readonly mapToIcon = mapToIcon;
   protected readonly convertToKm = convertToKm;
+  protected readonly getWeatherDescription = getWeatherDescription;
+  protected readonly getWindRotation = getWindRotation;
 }

@@ -9,13 +9,31 @@
     </div>
     <h1>{{ temperature() }}</h1>
   </div>
-  <div class="flex items-center justify-center">
-    @if (rainChance() < 60) {
-      <ng-container *ngTemplateOutlet="lowChance"></ng-container>
-    } @else {
-      <ng-container *ngTemplateOutlet="highChance"></ng-container>
-    }
-    <p>{{ rainChance() }}{{ rainUnits() }}</p>
+  <p style="font-size: 12px"> {{ getWeatherDescription(weatherCode()) }}</p>
+  <div>
+  </div>
+  <div class="flex flex-col items-center justify-center">
+    <div class="flex items-center">
+      <img ngSrc="{{mapToIcon('thermometer')}}" width="50" height="50">
+      <p style="font-size: 12px">{{ apparentTemperature() }} {{ temperatureUnit() }}</p>
+    </div>
+    <div class="flex items-center gap-1">
+      <img ngSrc="{{mapToIcon('wind')}}" width="50" height="50">
+      <p style="font-size: 12px">{{ windSpeed() }} {{ windUnit() }}</p>
+      <i class="pi pi-arrow-up" [ngStyle]="getWindRotation(windDirection())"
+         style="font-size: 1rem"></i>
+    </div>
+    <div class="flex items-center">
+      @if (rainChance() > 0) {
+        @if (rainChance() < 60) {
+          <ng-container *ngTemplateOutlet="lowChance"></ng-container>
+        } @else {
+          <ng-container *ngTemplateOutlet="highChance"></ng-container>
+        }
+        <p>{{ rainChance() }}{{ rainUnits() }}</p>
+      }
+    </div>
+
   </div>
 </div>
 

@@ -5,82 +5,77 @@
 
 @if (currentWeatherRes) {
   <!--TODO: consider, COULD move to its own component; add wind speed to summary-->
-  <app-card-ui-component class="mx-8">
-    <div card-heading>
-      <div class="flex justify-between">
-        <p>Current Weather</p>
-        <p>{{ date() | date:'mediumDate' }}, {{ timestamp() }}</p>
+  <div class="grid grid-cols-2 gap-6">
+    <app-card-ui-component class="mx-8">
+      <div card-heading>
+        <div class="flex justify-between">
+          <p>Current Weather</p>
+          <p>{{ date() | date:'mediumDate' }}, {{ timestamp() }}</p>
+        </div>
       </div>
-    </div>
-    <div card-body>
-      <div class="flex">
-        <div class="flex items-center w-1/2">
+      <div card-body>
+        <div class="flex items-center">
           <img
             ngSrc="{{mapToWeatherIcon(weatherCode(), isDay())}}"
             alt="sunny" width="200"
             height="200"/>
-          <div class="flex flex-col ml-8">
-            <h1>{{ currentTemperature() }}{{ currentTemperatureUnit() }}</h1>
-            <h1>Feels like: {{ apparentTemperature() }}{{ currentTemperatureUnit() }}</h1>
+          <div class="flex flex-col mx-4">
+            <h1
+              style="font-size:4rem">{{ currentTemperature() }}{{ currentTemperatureUnit() }}</h1>
+          </div>
+          <div class="w-full">
+            <h1>{{ getWeatherDescription(weatherCode()) }}</h1>
+            <p>Feels like: {{ apparentTemperature() }}{{ currentTemperatureUnit() }}</p>
           </div>
         </div>
-        <div class="w-1/2">
-          <p>Is day: {{ isDay() }}; Weather Code {{ weatherCode() }}</p>
-          <div class="flex ">
-            <div class="flex items-center">
-              <img
-                ngSrc="./assets/weather-icons/weather-icons-master/production/fill/all/pressure-high.svg"
-                alt="sunny" width="100" height="100">
-              <p>INSERT HIGH FOR DAY</p>
-            </div>
-            <div class="flex items-center">
-              <h1 class="strong">/ INSERT SLASH</h1>
-            </div>
-            <div class="flex items-center">
-              <img
-                ngSrc="./assets/weather-icons/weather-icons-master/production/fill/all/pressure-low.svg"
-                alt="sunny" width="100" height="100">
-              <p>INSERT LOW FOR DAY</p>
+        <div>
+          <p>{{ summary() }}</p>
+        </div>
+        <div class="flex justify-between">
+          <div>
+            <label>Wind</label>
+            <div class="flex items-center gap-2">
+              <p>{{ windSpeed() }} {{ windSpeedUnit() }}</p>
+              <i class="pi pi-arrow-up" [ngStyle]="getWindRotation(windSpeedDirection())"
+                 style="font-size: 1rem"></i>
             </div>
           </div>
-          <p>Rain: {{ rainChance() }}{{ rainUnit() }}</p>
-        </div>
-      </div>
-      <div class="flex justify-between">
-        <div>
-          <label>Wind</label>
-          <div class="flex items-center gap-2">
-            <p>{{ windSpeed() }} {{ windSpeedUnit() }}</p>
-            <i class="pi pi-arrow-up" [ngStyle]="getWindRotation()" style="font-size: 1rem"></i>
+          <div>
+            <label>Humidity</label>
+            <div class="flex items-center gap-2">
+              <p>{{ relativeHumidity() }} {{ relativeHumidityUnit() }}</p>
+            </div>
           </div>
-        </div>
-        <div>
-          <label>Humidity</label>
-          <div class="flex items-center gap-2">
-            <p>{{ relativeHumidity() }} {{ relativeHumidityUnit() }}</p>
+          <div>
+            <label>Visibility</label>
+            <div class="flex items-center gap-2">
+              <p>{{ convertToKm(visibility(), visibilityUnit()) }}</p>
+            </div>
           </div>
-        </div>
-        <div>
-          <label>Visibility</label>
-          <div class="flex items-center gap-2">
-            <p>{{ convertToKm(visibility(), visibilityUnit()) }}</p>
+          <div>
+            <label>Pressure</label>
+            <div class="flex items-center gap-2">
+              <p>{{ pressure() }} {{ pressureUnit() }}</p>
+            </div>
           </div>
-        </div>
-        <div>
-          <label>Pressure</label>
-          <div class="flex items-center gap-2">
-            <p>{{ pressure() }} {{ pressureUnit() }}</p>
-          </div>
-        </div>
-        <div>
-          <label>Dew Point</label>
-          <div class="flex items-center gap-2">
-            <p>{{ dewPoint() }} {{ dewPointUnit() }}</p>
+          <div>
+            <label>Dew Point</label>
+            <div class="flex items-center gap-2">
+              <p>{{ dewPoint() }} {{ dewPointUnit() }}</p>
+            </div>
           </div>
         </div>
       </div>
+    </app-card-ui-component>
+    <div>
+      <app-card-ui-component>
+        <div card-heading>
+          <h1>MONTHLY HOT/RAINY DAYS</h1>
+          <h1>AVERAGE HIGH AND LOW TEMPS</h1>
+        </div>
+      </app-card-ui-component>
     </div>
-  </app-card-ui-component>
+  </div>
 }
 
 @if (hourlyData.length > 0) {
@@ -91,7 +86,7 @@
       </div>
     </div>
     <div card-body>
-      <p-carousel [value]="hourlyDataPoints()" [numVisible]="8" [numScroll]="1" [circular]="false">
+      <p-carousel [value]="hourlyDataPoints()" [numVisible]="6" [numScroll]="1" [circular]="false">
         <ng-template let-hourlyDataPoint #item>
           <app-carousel-ui-component [timestamp]="getTimestamp(hourlyDataPoint.time)"
                                      [data]="hourlyDataPoint"/>
@@ -103,6 +98,7 @@
 
 <div class="grid grid-cols-3 gap-6">
   <p>INSERT SUNRISE SUNSET THING</p>
+  <!--  TODO: maybe nuke UV when sun its not day anymore-->
   @if (airQualityData) {
     <app-card-ui-component>
       <div card-heading class="flex justify-center">
@@ -153,12 +149,12 @@
       <div card-heading class="flex justify-center">
         <h1>Cloud Wind</h1>
       </div>
-      <div card-body class="flex items-center">
+      <div card-body class="flex w-full">
         <div class="flex flex-col">
           <div>
             INSERT DIRECTIONAL ARROW IMG THING
           </div>
-          <div class="flex gap-4">
+          <div class="flex w-full justify-between">
             <div class="flex flex-row items-center">
               <h1 style="font-size: 3rem">{{ windSpeed() }}</h1>
               <div>

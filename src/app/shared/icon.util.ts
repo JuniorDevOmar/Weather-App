@@ -10,6 +10,8 @@ export function mapToIcon(key: string) {
   const icons = {
     'humidity': 'humidity.svg',
     'cloudy': 'cloudy.svg',
+    'wind': 'wind.svg',
+    'thermometer': 'thermometer.svg',
   } as { [key: string]: string; }
   return `${allIcons}/${icons[key] || 'clear-day.svg'}`;
 }
