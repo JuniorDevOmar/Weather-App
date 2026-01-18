@@ -4,6 +4,10 @@ export function convertToKm(value: number, units: string) {
   return `${value} km`;
 }
 
+export function getTimestamp(time: string) {
+  return time.slice(time.indexOf('T') + 1, time.length);
+}
+
 export function getWindRotation(direction: number) {
   return {
     'transform': `rotate(${direction}deg)`,

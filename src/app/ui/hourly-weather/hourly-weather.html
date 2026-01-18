@@ -1,0 +1,15 @@
+<app-card-ui-component>
+  <div card-heading>
+    <div class="flex justify-between">
+      <p>Hourly Weather</p>
+    </div>
+  </div>
+  <div card-body>
+    <p-carousel [value]="hourlyDataPoints()" [numVisible]="6" [numScroll]="6" [circular]="false">
+      <ng-template let-hourlyDataPoint #item>
+        <app-carousel-ui-component [timestamp]="getTimestamp(hourlyDataPoint.time)"
+                                   [data]="hourlyDataPoint"/>
+      </ng-template>
+    </p-carousel>
+  </div>
+</app-card-ui-component>

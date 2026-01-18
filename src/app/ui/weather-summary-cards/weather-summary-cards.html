@@ -1,0 +1,73 @@
+<div class="grid grid-cols-3 gap-6">
+  <p>INSERT SUNRISE SUNSET THING</p>
+  <!--  TODO: maybe nuke UV when sun its not day anymore-->
+  <app-card-ui-component>
+    <div card-heading class="flex justify-center">
+      <h1>UV Index</h1>
+    </div>
+    <div card-body class="flex items-center">
+      <img ngSrc="{{mapUVIndexToIcon(roundedUvIndex())}}" width="75" height="75">
+      <p>{{ uvIndex() }}</p>
+    </div>
+  </app-card-ui-component>
+  <app-card-ui-component>
+    <div card-heading class="flex justify-center">
+      <h1>Humidity</h1>
+    </div>
+    <div card-body class="flex items-center">
+      <img ngSrc="{{mapToIcon('humidity')}}" width="75" height="75">
+      <p>{{ relativeHumidity() }}</p>
+      <p>{{ relativeHumidityUnit() }}</p>
+    </div>
+  </app-card-ui-component>
+  <app-card-ui-component>
+    <div card-heading class="flex justify-center">
+      <h1>Visibility</h1>
+    </div>
+    <div card-body class="flex items-center gap-4">
+      <i class="pi pi-eye" style="font-size: 3rem"></i>
+      <p>{{ convertToKm(visibility(), visibilityUnit()) }}</p>
+    </div>
+  </app-card-ui-component>
+  @if (cloudCover()) {
+    <app-card-ui-component>
+      <div card-heading class="flex justify-center">
+        <h1>Cloud Cover</h1>
+      </div>
+      <div card-body class="flex items-center">
+        <img ngSrc="{{mapToIcon('cloudy')}}" width="75" height="75">
+        <p>{{ cloudCover() }} {{ cloudCoverUnit() }}</p>
+      </div>
+    </app-card-ui-component>
+  }
+  @if (windSpeed()) {
+    <app-card-ui-component>
+      <div card-heading class="flex justify-center">
+        <h1>Cloud Wind</h1>
+      </div>
+      <div card-body class="flex w-full">
+        <div class="flex flex-col">
+          <div>
+            INSERT DIRECTIONAL ARROW IMG THING
+          </div>
+          <div class="flex w-full justify-between">
+            <div class="flex flex-row items-center">
+              <h1 style="font-size: 3rem">{{ windSpeed() }}</h1>
+              <div>
+                <p>{{ windSpeedUnit() }}</p>
+                <p>Speed</p>
+              </div>
+            </div>
+            <div class="flex flex-row items-center">
+              <h1 style="font-size: 3rem">{{ windGusts() }}</h1>
+              <div>
+                <p>{{ windGustsUnit() }}</p>
+                <p>Wind Gust</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card-ui-component>
+  }
+</div>
