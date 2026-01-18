@@ -18,7 +18,6 @@ export class WeatherInfo {
   // TODO: [code] fallback for if the call was successful but no results were returned
   // TODO: [code] mv all the additional parameters somewhere else?
   // TODO: [code] implement a 'fetch' every ten minutes to update the temperature. Also have a refresh button for the user to force update.
-  // TODO: [design] when mapping icons, check response for `is_day` and use the appropriate icon(2d = day, 2n = night).
   readonly #httpClient = inject(HttpClient);
   readonly #currentWeatherUrl: string = "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&timezone=auto&current=relative_humidity_2m&current=visibility,temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,pressure_msl,surface_pressure,wind_speed_10m,wind_direction_10m,wind_gusts_10m"
   // TODO: [consider] a filter to let them increase the range of future forecasts

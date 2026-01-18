@@ -19,61 +19,17 @@ export class WeatherSummaryCards {
   currentWeather = input.required<CurrentWeatherResponse>();
   airQuality = input.required<AirQualityResponse>();
 
-  readonly relativeHumidity = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return 0;
-    return weather.current.relative_humidity_2m;
-  });
-  readonly relativeHumidityUnit = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return '';
-    return weather.current_units.relative_humidity_2m;
-  });
-  readonly visibility = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return 0;
-    return weather.current.visibility;
-  });
-  readonly visibilityUnit = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return '';
-    return weather.current_units.visibility;
-  });
-  readonly windSpeed = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return 0;
-    return weather.current.wind_speed_10m;
-  });
-  readonly windSpeedUnit = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return '';
-    return weather.current_units.wind_speed_10m;
-  });
-  readonly windGusts = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return 0;
-    return weather.current.wind_gusts_10m;
-  });
-  readonly windGustsUnit = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return '';
-    return weather.current_units.wind_gusts_10m;
-  });
-  readonly cloudCover = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return 0;
-    return weather.current.cloud_cover;
-  });
-  readonly cloudCoverUnit = computed(() => {
-    const weather = this.currentWeather();
-    if (weather == null) return '';
-    return weather.current_units.cloud_cover;
-  });
-  readonly uvIndex = computed(() => {
-    const airQuality = this.airQuality();
-    if (airQuality == null) return 0;
-    return airQuality.current.uv_index;
-  });
+  readonly relativeHumidity = computed(() => this.currentWeather().current.relative_humidity_2m);
+  readonly relativeHumidityUnit = computed(() => this.currentWeather().current_units.relative_humidity_2m);
+  readonly visibility = computed(() => this.currentWeather().current.visibility);
+  readonly visibilityUnit = computed(() => this.currentWeather().current_units.visibility);
+  readonly windSpeed = computed(() => this.currentWeather().current.wind_speed_10m);
+  readonly windSpeedUnit = computed(() => this.currentWeather().current_units.wind_speed_10m);
+  readonly windGusts = computed(() => this.currentWeather().current.wind_gusts_10m);
+  readonly windGustsUnit = computed(() => this.currentWeather().current_units.wind_gusts_10m);
+  readonly cloudCover = computed(() => this.currentWeather().current.cloud_cover);
+  readonly cloudCoverUnit = computed(() => this.currentWeather().current_units.cloud_cover);
+  readonly uvIndex = computed(() => this.airQuality().current.uv_index);
   readonly roundedUvIndex = computed(() => Math.round(this.uvIndex()));
 
   protected readonly mapToIcon = mapToIcon;

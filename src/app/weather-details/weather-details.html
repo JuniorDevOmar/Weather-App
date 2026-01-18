@@ -1,14 +1,18 @@
-@let currentWeatherRes = currentWeather();
-@let hourlyWeatherRes = hourlyWeather();
-@let airQualityData = airQuality();
+@let currentWeatherRes = currentWeather()!;
+@let hourlyWeatherRes = hourlyWeather()!;
+@let airQualityData = airQuality()!;
 
-@if (currentWeatherRes) {
-  <app-current-weather [currentWeather]="currentWeatherRes"/>
-}
-
-@if (hourlyWeatherRes) {
-  <app-hourly-weather [hourlyWeather]="hourlyWeatherRes"/>
-}
-@if (airQualityData && currentWeatherRes) {
-  <app-weather-summary-cards [currentWeather]="currentWeatherRes" [airQuality]="airQualityData"/>
+@if (loading()) {
+  <div class="flex items-center justify-center min-h-screen">
+    <div class="text-center space-y-4">
+      <i class="pi pi-spin pi-spinner" style="font-size: 4rem"></i>
+      <p class="text-xl text-gray-600">Fetching weather data...</p>
+    </div>
+  </div>
+} @else {
+  <div class="flex flex-col gap-3 fade-in">
+    <app-current-weather [currentWeather]="currentWeatherRes"/>
+    <app-hourly-weather [hourlyWeather]="hourlyWeatherRes"/>
+    <app-weather-summary-cards [currentWeather]="currentWeatherRes" [airQuality]="airQualityData"/>
+  </div>
 }

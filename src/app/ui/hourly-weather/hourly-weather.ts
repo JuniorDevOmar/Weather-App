@@ -17,10 +17,6 @@ import {getTimestamp} from '../../shared/function.util';
 })
 export class HourlyWeather {
   hourlyWeather = input.required<HourlyWeatherResponse>();
-  hourlyDataPoints = computed(() => {
-    const hourlyData = this.hourlyWeather();
-    if (hourlyData == null) return [];
-    return transformHourlyData(hourlyData);
-  });
+  hourlyDataPoints = computed(() => transformHourlyData(this.hourlyWeather()));
   protected readonly getTimestamp = getTimestamp;
 }
