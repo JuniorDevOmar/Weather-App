@@ -21,7 +21,7 @@ import {getWeatherDescription} from '../shared/description.util';
     CarouselUiComponent,
     NgOptimizedImage,
     Carousel,
-    NgStyle
+    NgStyle,
   ],
   templateUrl: './weather-details.html',
   styleUrl: './weather-details.scss',
@@ -30,7 +30,7 @@ export class WeatherDetails {
   readonly #route = inject(ActivatedRoute);
   readonly #service: WeatherInfo = inject(WeatherInfo);
   readonly #date = signal(new Date());
-  date = computed(() => this.#date());
+  currentDate = computed(() => this.#date());
 
   latitude$ = this.#route.queryParamMap.pipe(
     map(params => params.get('latitude')),

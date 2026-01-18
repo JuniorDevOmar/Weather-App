@@ -12,11 +12,10 @@ import {DailyWeatherResponse} from '../model/daily.weather.model';
 })
 export class WeatherInfo {
   // TODO: [code] rm hardcoded values
-  // TODO: [code] replace any with type
+  // TODO: [code] rm special characters in display @see City#timezone
   // TODO: [design] maybe default to Cape Town or something; does it make sense to ask for user location perms?
   // TODO: [design] maybe add a loading indicator
   // TODO: [code] fallback for if the call was successful but no results were returned
-  // TODO: [code] rm special characters in display @see City#timezone
   // TODO: [code] mv all the additional parameters somewhere else?
   // TODO: [code] implement a 'fetch' every ten minutes to update the temperature. Also have a refresh button for the user to force update.
   // TODO: [design] when mapping icons, check response for `is_day` and use the appropriate icon(2d = day, 2n = night).

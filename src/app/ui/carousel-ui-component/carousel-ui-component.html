@@ -30,7 +30,7 @@
         } @else {
           <ng-container *ngTemplateOutlet="highChance"></ng-container>
         }
-        <p>{{ rainChance() }}{{ rainUnits() }}</p>
+        <p style="font-size: 12px">{{ rainChance() }}{{ rainUnits() }}</p>
       }
     </div>
 
@@ -39,9 +39,9 @@
 
 <ng-template #lowChance>
   <img [ngSrc]="'./assets/weather-icons/weather-icons-master/production/fill/all/raindrop.svg'"
-       width="50" height="50"/>
+       width="35" height="35"/>
 </ng-template>
 <ng-template #highChance>
   <img [ngSrc]="'./assets/weather-icons/weather-icons-master/production/fill/all/raindrops.svg'"
-       width="50" height="50"/>
+       width="35" height="35"/>
 </ng-template>

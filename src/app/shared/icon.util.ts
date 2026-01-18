@@ -3,6 +3,9 @@ const allIcons = `./assets/weather-icons/weather-icons-master/production/fill/al
 const openWeatherIcons = `./assets/weather-icons/weather-icons-master/production/fill/openweathermap`;
 
 export function mapToWeatherIcon(code: number, isDay: number) {
+  if (code === 0) {
+    code = 1;
+  }
   return `${openWeatherIcons}/${code > 9 ? code : `0${code}`}${isDay ? 'd' : 'n'}.svg`;
 }
 

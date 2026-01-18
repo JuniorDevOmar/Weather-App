@@ -6,11 +6,11 @@
 @if (currentWeatherRes) {
   <!--TODO: consider, COULD move to its own component; add wind speed to summary-->
   <div class="grid grid-cols-2 gap-6">
-    <app-card-ui-component class="mx-8">
+    <app-card-ui-component>
       <div card-heading>
         <div class="flex justify-between">
           <p>Current Weather</p>
-          <p>{{ date() | date:'mediumDate' }}, {{ timestamp() }}</p>
+          <p>{{ currentDate() | date:'mediumDate' }}, {{ timestamp() }}</p>
         </div>
       </div>
       <div card-body>
@@ -67,14 +67,6 @@
         </div>
       </div>
     </app-card-ui-component>
-    <div>
-      <app-card-ui-component>
-        <div card-heading>
-          <h1>MONTHLY HOT/RAINY DAYS</h1>
-          <h1>AVERAGE HIGH AND LOW TEMPS</h1>
-        </div>
-      </app-card-ui-component>
-    </div>
   </div>
 }
 
@@ -86,7 +78,7 @@
       </div>
     </div>
     <div card-body>
-      <p-carousel [value]="hourlyDataPoints()" [numVisible]="6" [numScroll]="1" [circular]="false">
+      <p-carousel [value]="hourlyDataPoints()" [numVisible]="6" [numScroll]="6" [circular]="false">
         <ng-template let-hourlyDataPoint #item>
           <app-carousel-ui-component [timestamp]="getTimestamp(hourlyDataPoint.time)"
                                      [data]="hourlyDataPoint"/>
