@@ -43,9 +43,14 @@ export class TopNav {
     this.#router.navigate(['/weather'], {
       queryParams: {
         city: city.name,
+        country: city.country,
         latitude: city.latitude,
         longitude: city.longitude
       }
     }).then();
+  }
+
+  navigateHome() {
+    this.#router.navigate(['/']).then();
   }
 }

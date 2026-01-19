@@ -19,9 +19,10 @@ import {CurrentWeatherResponse} from '../../../../shared/model/current.weather.m
   styleUrl: './current-weather.scss',
 })
 export class CurrentWeather {
-  readonly #date = signal(new Date());
-  currentDate = computed(() => this.#date());
-  location = input.required<string>();
+  location = input.required<{ country: string, city: string }>();
+  locationDetails = computed(() => {
+    return `${this.location().city}, ${this.location().country}`;
+  });
   currentWeather = input.required<CurrentWeatherResponse>();
   readonly timestamp = computed(() => {
     const time = this.currentWeather().current.time;

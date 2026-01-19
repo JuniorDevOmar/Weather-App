@@ -20,9 +20,13 @@ import {WeatherSummaryCards} from '../ui/weather-summary-cards/weather-summary-c
 export class WeatherDetails {
   readonly #route = inject(ActivatedRoute);
   readonly #service = inject(WeatherInfo);
-  readonly #location$ = this.#route.queryParamMap.pipe(
-      map(params => params.get('city')),
-      filter(x => x != null),
+  readonly #city$ = this.#route.queryParamMap.pipe(
+    map(params => params.get('city')),
+    filter(x => x != null),
+  );
+  readonly #country$ = this.#route.queryParamMap.pipe(
+    map(params => params.get('country')),
+    filter(x => x != null),
   );
   readonly #latitude$ = this.#route.queryParamMap.pipe(
     map(params => params.get('latitude')),
@@ -33,7 +37,11 @@ export class WeatherDetails {
     filter(x => x != null),
   );
 
-  readonly location = toSignal(this.#location$, {initialValue: ''})
+  readonly #city = toSignal(this.#city$, {initialValue: ''})
+  readonly #country = toSignal(this.#country$, {initialValue: ''})
+  readonly location = computed(() => {
+    return {city: this.#city(), country: this.#country()};
+  });
   readonly #latitude = toSignal(this.#latitude$, {initialValue: ''});
   readonly #longitude = toSignal(this.#longitude$, {initialValue: ''});
   readonly #coordinates = computed(() => ({lat: this.#latitude(), lng: this.#longitude()}));
