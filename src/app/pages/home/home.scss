@@ -7,6 +7,20 @@
   animation: float 35s ease-in-out infinite reverse;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+
 @keyframes float {
   0%, 100% {
     transform: translateX(0) translateY(0);

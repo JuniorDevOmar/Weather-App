@@ -43,6 +43,7 @@ This app uses the [Open-Meteo API](https://open-meteo.com/), a free weather API 
 - [ ] Display Weather warnings and alerts
 - [ ] Display Historical weather data
 - [ ] Weather radar maps
+- [ ] Improve icons
 
 ## Credits
 
@@ -59,12 +60,14 @@ Clone the repo and run the following in the base directory where the `compose.ya
 docker compose up -d --build 
 ```
 
-Verify that the service is up under the name `weather-app` using 
+Verify that the service is up under the name `weather-app` using
+
 ```bash
 docker ps
 ```
 
 Once complete, run stop the service:
+
 ```bash
 docker compose down
 ```

@@ -5,14 +5,12 @@ import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import {WeatherInfo} from '../../../shared/services/weather-info';
 import {CurrentWeather} from '../ui/current-weather/current-weather';
 import {HourlyWeather} from '../ui/hourly-weather/hourly-weather';
-import {WeatherSummaryCards} from '../ui/weather-summary-cards/weather-summary-cards';
 
 @Component({
   selector: 'app-weather-details',
   imports: [
     CurrentWeather,
     HourlyWeather,
-    WeatherSummaryCards,
   ],
   templateUrl: './weather-details.html',
   styleUrl: './weather-details.scss',
