@@ -37,3 +37,8 @@ export const CURRENT_DAY_FIELDS = [
   "pressure_msl",
   "surface_pressure"
 ] as const;
+
+export const DAILY_FIELDS = [
+  'weather_code', 'temperature_2m_max', 'apparent_temperature_max', 'temperature_2m_min', 'apparent_temperature_min', 'uv_index_max',
+  'sunrise', 'sunset', 'daylight_duration', 'wind_speed_10m_max', 'precipitation_probability_max', 'wind_speed_10m_max'
+] as const;

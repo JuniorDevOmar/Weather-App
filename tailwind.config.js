@@ -1,4 +1,3 @@
-// tailwind.config.js
 module.exports = {
   theme: {
     extend: {
@@ -11,12 +10,11 @@ module.exports = {
         '2xl': '1536px',   // Keep default 2xl
         '3xl': '1920px',   // Add new
 
-        // Range breakpoints (between two sizes)
-        'xs-only': { 'min': '475px', 'max': '639px' },      // Only xs
-        'sm-only': { 'min': '640px', 'max': '767px' },      // Only sm
-        'md-only': { 'min': '768px', 'max': '1023px' },     // Only md
-        'lg-only': { 'min': '1024px', 'max': '1279px' },    // Only lg
-        'xl-only': { 'min': '1280px', 'max': '1535px' },    // Only xl
+        'xs-only': {'min': '475px', 'max': '639px'},      // Only xs
+        'sm-only': {'min': '640px', 'max': '767px'},      // Only sm
+        'md-only': {'min': '768px', 'max': '1023px'},     // Only md
+        'lg-only': {'min': '1024px', 'max': '1279px'},    // Only lg
+        'xl-only': {'min': '1280px', 'max': '1535px'},    // Only xl
       }
     }
   }

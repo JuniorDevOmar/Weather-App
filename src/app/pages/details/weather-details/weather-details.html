@@ -1,5 +1,6 @@
 @let currentWeatherRes = currentWeather()!;
 @let hourlyWeatherRes = hourlyWeather()!;
+@let dailyWeatherRes = dailyWeather()!;
 
 @if (loading()) {
   <div class="flex items-center justify-center min-h-screen">
@@ -9,8 +10,9 @@
     </div>
   </div>
 } @else {
-  <div class="flex flex-col gap-3 fade-in">
+  <div class="flex flex-col gap-4 fade-in">
     <app-current-weather [location]="location()" [currentWeather]="currentWeatherRes"/>
     <app-hourly-weather [hourlyWeather]="hourlyWeatherRes"/>
+    <app-daily-weather [data]="dailyWeatherRes"/>
   </div>
 }

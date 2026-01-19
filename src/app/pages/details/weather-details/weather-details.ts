@@ -5,12 +5,14 @@ import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import {WeatherInfo} from '../../../shared/services/weather-info';
 import {CurrentWeather} from '../ui/current-weather/current-weather';
 import {HourlyWeather} from '../ui/hourly-weather/hourly-weather';
+import {DailyWeather} from '../ui/daily-weather/daily-weather';
 
 @Component({
   selector: 'app-weather-details',
   imports: [
     CurrentWeather,
     HourlyWeather,
+    DailyWeather,
   ],
   templateUrl: './weather-details.html',
   styleUrl: './weather-details.scss',
@@ -46,17 +48,19 @@ export class WeatherDetails {
 
   readonly #currentWeather$ = toObservable(this.#coordinates)
     .pipe(filter(coords => coords.lat != null && coords.lng != null),
-      switchMap(coords => this.#service.getCurrentWeatherInfo(coords.lat, coords.lng))
-    );
+      switchMap(coords => this.#service.getCurrentWeatherInfo(coords.lat, coords.lng)));
   readonly #hourlyWeather$ = toObservable(this.#coordinates)
     .pipe(filter(coords => coords.lat != null && coords.lng != null),
-      switchMap(coords => this.#service.getHourlyWeatherInfo(coords.lat, coords.lng))
-    );
+      switchMap(coords => this.#service.getHourlyWeatherInfo(coords.lat, coords.lng)));
+  readonly #dailyWeather$ = toObservable(this.#coordinates)
+    .pipe(filter(coords => coords.lat != null && coords.lng != null),
+      switchMap(coords => this.#service.getDailyWeatherInfo(coords.lat, coords.lng)));
 
   readonly currentWeather = toSignal(this.#currentWeather$, {initialValue: null});
   readonly hourlyWeather = toSignal(this.#hourlyWeather$, {initialValue: null});
+  readonly dailyWeather = toSignal(this.#dailyWeather$, {initialValue: null});
 
   readonly loading = computed(() =>
-    this.currentWeather() == null || this.hourlyWeather() == null
+    this.currentWeather() == null || this.hourlyWeather() == null || this.dailyWeather() == null
   );
 }

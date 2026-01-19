@@ -10,8 +10,6 @@ export interface DailyWeatherUnits {
   precipitation_hours: string;
   uv_index_max: string;
   precipitation_probability_max: string;
-  dew_point_2m_max: string;
-  visibility_max: string;
 }
 
 export interface DailyWeatherData {
@@ -23,9 +21,10 @@ export interface DailyWeatherData {
   apparent_temperature_min: number[];
   precipitation_hours: number[];
   uv_index_max: number[];
+  sunrise: string[];
+  sunset: string[];
+  wind_speed_10m_max: number[];
   precipitation_probability_max: number[];
-  dew_point_2m_max: number[];
-  visibility_max: number[];
 }
 
 export interface DailyWeatherResponse extends WeatherResponse {
@@ -40,11 +39,11 @@ export interface DailyForecast {
   tempMin: number;
   apparentTempMax: number;
   apparentTempMin: number;
-  precipitationHours: number;
   uvIndexMax: number;
+  sunrise: string;
+  sunset: string;
+  windSpeed: number;
   precipitationProbabilityMax: number;
-  dewPointMax: number;
-  visibilityMax: number;
 }
 
 export function transformDailyData(response: DailyWeatherResponse): DailyForecast[] {
@@ -55,10 +54,10 @@ export function transformDailyData(response: DailyWeatherResponse): DailyForecas
     tempMin: response.daily.temperature_2m_min[index],
     apparentTempMax: response.daily.apparent_temperature_max[index],
     apparentTempMin: response.daily.apparent_temperature_min[index],
-    precipitationHours: response.daily.precipitation_hours[index],
     uvIndexMax: response.daily.uv_index_max[index],
+    sunrise: response.daily.sunrise[index],
+    sunset: response.daily.sunset[index],
+    windSpeed: response.daily.wind_speed_10m_max[index],
     precipitationProbabilityMax: response.daily.precipitation_probability_max[index],
-    dewPointMax: response.daily.dew_point_2m_max[index],
-    visibilityMax: response.daily.visibility_max[index]
   }));
 }

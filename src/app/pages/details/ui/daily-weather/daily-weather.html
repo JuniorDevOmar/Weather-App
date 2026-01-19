@@ -1,0 +1,37 @@
+<p-table [value]="dataPoints()" [tableStyle]="{ 'min-width': '25rem' }">
+  <ng-template #header>
+    <tr>
+      <th>Date</th>
+      <th class="max-md:hidden">Condition</th>
+      <th class="max-md:hidden">Sunrise</th>
+      <th class="max-md:hidden">Sunset</th>
+      <th>Description</th>
+      <th>Max</th>
+      <th>Min</th>
+    </tr>
+  </ng-template>
+
+  <ng-template #body let-weather>
+    <tr [style.height.px]="80">
+      <td>{{ weather.date }}</td>
+      <td class="max-md:hidden">
+        <div style="width: 50px; height: 50px;">
+          <img [ngSrc]="mapToWeatherIcon(weather.weatherCode, 1)" width="50" height="50"
+               alt="weather-icon">
+        </div>
+      </td>
+      <td class="max-md:hidden">{{ getTimestamp(weather.sunrise) }}</td>
+      <td class="max-md:hidden">{{ getTimestamp(weather.sunset) }}</td>
+      <td>{{ getWeatherDescription(weather.weatherCode) }}</td>
+      <td>
+        <span class="font-bold text-orange-500">
+        {{ weather.tempMax }}°
+        </span>
+      </td>
+      <td>
+        <span class="font-bold text-blue-500">
+          {{ weather.tempMin }}°</span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
