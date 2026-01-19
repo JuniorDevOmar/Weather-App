@@ -20,6 +20,7 @@ import {CurrentWeatherResponse} from '../../model/current.weather.model';
 export class CurrentWeather {
   readonly #date = signal(new Date());
   currentDate = computed(() => this.#date());
+  location = input.required<string>();
   currentWeather = input.required<CurrentWeatherResponse>();
   readonly timestamp = computed(() => {
     const time = this.currentWeather().current.time;

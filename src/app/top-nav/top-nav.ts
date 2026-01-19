@@ -42,6 +42,7 @@ export class TopNav {
   onSelected(city: City) {
     this.#router.navigate(['/weather'], {
       queryParams: {
+        city: city.name,
         latitude: city.latitude,
         longitude: city.longitude
       }

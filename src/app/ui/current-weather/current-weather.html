@@ -1,24 +1,33 @@
 <div class="grid grid-cols-2 gap-6">
-  <app-card-ui-component>
+  <app-card-ui-component class="max-xl:col-span-full">
     <div card-heading>
       <div class="flex justify-between">
-        <p>Current Weather</p>
-        <p>{{ currentDate() | date:'mediumDate' }}, {{ timestamp() }}</p>
+        <p>{{ location() }}</p>
+        <div class="max-sm:hidden">
+          <p>{{ currentDate() | date:'mediumDate' }}, {{ timestamp() }}</p>
+        </div>
+        <div class="sm:hidden">
+          <p>{{ currentDate() | date:'shortDate' }}, {{ timestamp() }}</p>
+        </div>
       </div>
     </div>
     <div card-body>
       <div class="flex items-center">
-        <img
-          ngSrc="{{mapToWeatherIcon(weatherCode(), isDay())}}"
-          alt="sunny" width="200"
-          height="200"/>
-        <div class="flex flex-col mx-4">
-          <h1
-            style="font-size:4rem">{{ currentTemperature() }}{{ currentTemperatureUnit() }}</h1>
+        <div>
+          <img
+            ngSrc="{{mapToWeatherIcon(weatherCode(), isDay())}}"
+            alt="sunny" width="200"
+            height="200"/>
         </div>
-        <div class="w-full">
-          <h1>{{ getWeatherDescription(weatherCode()) }}</h1>
-          <p>Feels like: {{ apparentTemperature() }}{{ currentTemperatureUnit() }}</p>
+        <div class="flex items-center max-2xl:flex-col">
+          <div class="flex flex-col mx-4">
+            <h1 class="max-lg:font-sm"
+                style="font-size:4rem">{{ currentTemperature() }}{{ currentTemperatureUnit() }}</h1>
+          </div>
+          <div class="w-full">
+            <h1>{{ getWeatherDescription(weatherCode()) }}</h1>
+            <p>Feels like: {{ apparentTemperature() }}{{ currentTemperatureUnit() }}</p>
+          </div>
         </div>
       </div>
       <div>
@@ -45,13 +54,13 @@
             <p>{{ convertToKm(visibility(), visibilityUnit()) }}</p>
           </div>
         </div>
-        <div>
+        <div class="max-md:hidden">
           <label>Pressure</label>
           <div class="flex items-center gap-2">
             <p>{{ pressure() }} {{ pressureUnit() }}</p>
           </div>
         </div>
-        <div>
+        <div class="max-2xl:hidden">
           <label>Dew Point</label>
           <div class="flex items-center gap-2">
             <p>{{ dewPoint() }} {{ dewPointUnit() }}</p>

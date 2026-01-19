@@ -46,6 +46,7 @@ export class WeatherSearchForm {
 
   onSelect(location: City) {
     this.onSelected.emit(location);
+    this.searchQuery.set('');
   }
 
   onFocus(): void {
