@@ -25,7 +25,7 @@ body {
     $darkNavy 0%,
     $mediumNavy 50%,
     $lightNavy 100%
-  );
+  ) fixed;
 }
 
 header {
@@ -33,5 +33,5 @@ header {
 }
 
 main {
-  padding: 0 20%;
+  padding: 1% 20%;
 }
