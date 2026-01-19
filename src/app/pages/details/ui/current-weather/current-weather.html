@@ -3,12 +3,7 @@
     <div card-heading>
       <div class="flex justify-between">
         <h1 class="text-[clamp(1.5rem,8vw,2rem)] leading-none">{{ location() }}</h1>
-        <div class="max-sm:hidden">
-          <p>{{ currentDate() | date:'mediumDate' }}, {{ timestamp() }}</p>
-        </div>
-        <div class="sm:hidden">
-          <p>{{ currentDate() | date:'shortDate' }}, {{ timestamp() }}</p>
-        </div>
+        <p>Last Updated: {{ timestamp() }}</p>
       </div>
     </div>
     <div card-body>
