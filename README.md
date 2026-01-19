@@ -1,61 +1,70 @@
-# WeatherApp
+# Skywatcher
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+## Features
 
-## Development server
+- **Current Weather**: Real-time temperature, weather conditions, humidity, wind speed, visibility, and pressure
+- **Hourly Forecast**: 24-hour weather predictions with temperature and conditions
+- **Air Quality**: Current air quality index, pollutants, and pollen levels
+- **Location Search**: Search for weather by city or location with autocomplete
+- **Natural Language Summaries**: AI-generated weather narratives and recommendations
 
-To start a local development server, run:
+## Tech Stack
+
+- **Framework**: Angular 21 (Standalone Components)
+- **UI Library**: PrimeNG
+- **Styling**: Tailwind CSS
+- **State Management**: Angular Signals
+- **API**: Open-Meteo Weather API (free, no API key required)
+
+## API Integration
+
+This app uses the [Open-Meteo API](https://open-meteo.com/), a free weather API that doesn't require an API key:
+
+- **Current Weather**: Temperature, conditions, humidity, wind, pressure
+- **Hourly Forecast**: 24-48 hour predictions
+- **Air Quality**: AQI, pollutants, pollen data
+- **Geocoding**: Location search and coordinates
+- Integration with WMO weather codes
+
+## Constraints
+
+- City search only
+
+## Example Usage
+
+- You could try any city in your country. Example for South Africa could be "Pretoria", "Kimberley" or "Cape Town"
+
+## Future Improvements
+
+- [ ] Multiple location favorites
+- [ ] Unit preferences (Celsius/Fahrenheit)
+- [ ] Monthly Forecasts
+- [ ] More error cases handled
+- [ ] Display Weather warnings and alerts
+- [ ] Display Historical weather data
+- [ ] Weather radar maps
+
+## Credits
+
+- Weather data provided by [Open-Meteo](https://open-meteo.com/)
+- Weather icons by [Bas Milius - Meteocons](https://github.com/basmilius/weather-icons)
+- UI framework icons from [PrimeIcons](https://primeng.org/icons)
+- UI components from [PrimeNG](https://primeng.org/)
+
+## To Run
+
+Clone the repo and run the following in the base directory where the `compose.yaml` file is.
 
 ```bash
-ng serve
+docker compose up -d --build 
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+Verify that the service is up under the name `weather-app` using 
 ```bash
-ng generate component component-name
+docker ps
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+Once complete, run stop the service:
 ```bash
-ng generate --help
+docker compose down
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-TODO: Figure out font styling
