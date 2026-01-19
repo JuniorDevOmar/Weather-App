@@ -1,0 +1,17 @@
+
+.cloud-1 {
+  animation: float 20s ease-in-out infinite;
+}
+
+.cloud-2 {
+  animation: float 35s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(50px) translateY(-20px);
+  }
+}
