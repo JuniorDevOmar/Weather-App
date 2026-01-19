@@ -36,9 +36,10 @@ This app uses the [Open-Meteo API](https://open-meteo.com/), a free weather API 
 
 ## Future Improvements
 
-- [ ] Multiple location favorites
+- [ ] Ability to add favorite locations for quick access
 - [ ] Unit preferences (Celsius/Fahrenheit)
 - [ ] Monthly Forecasts
+- [ ] Navigation to selected forecasts
 - [ ] More error cases handled
 - [ ] Display Weather warnings and alerts
 - [ ] Display Historical weather data
