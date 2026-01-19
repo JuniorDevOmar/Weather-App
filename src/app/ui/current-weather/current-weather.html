@@ -2,7 +2,7 @@
   <app-card-ui-component class="max-xl:col-span-full">
     <div card-heading>
       <div class="flex justify-between">
-        <p>{{ location() }}</p>
+        <h1 class="text-[clamp(1.5rem,8vw,2rem)] leading-none">{{ location() }}</h1>
         <div class="max-sm:hidden">
           <p>{{ currentDate() | date:'mediumDate' }}, {{ timestamp() }}</p>
         </div>
@@ -21,8 +21,8 @@
         </div>
         <div class="flex items-center max-2xl:flex-col">
           <div class="flex flex-col mx-4">
-            <h1 class="max-lg:font-sm"
-                style="font-size:4rem">{{ currentTemperature() }}{{ currentTemperatureUnit() }}</h1>
+            <h2
+              class="text-[clamp(2.5rem,8vw,5rem)] leading-none">{{ currentTemperature() }}{{ currentTemperatureUnit() }}</h2>
           </div>
           <div class="w-full">
             <h1>{{ getWeatherDescription(weatherCode()) }}</h1>
@@ -48,7 +48,7 @@
             <p>{{ relativeHumidity() }} {{ relativeHumidityUnit() }}</p>
           </div>
         </div>
-        <div>
+        <div class="max-sm:hidden">
           <label>Visibility</label>
           <div class="flex items-center gap-2">
             <p>{{ convertToKm(visibility(), visibilityUnit()) }}</p>

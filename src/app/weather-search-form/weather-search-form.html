@@ -1,5 +1,7 @@
 <div class="search-box">
-  <input type="text" pInputText placeholder="Enter City Name" class="form-control" required
+  <input type="text"
+         [class.error-shake]="error()"
+         pInputText placeholder="Enter City Name" class="form-control" required
          [(ngModel)]="searchQuery" name="searchQuery" (focus)="onFocus()" (blur)="onBlur()">
   <i class="icon" [ngClass]="loading() ? 'pi pi-spin pi-spinner' : 'pi pi-search'"></i>
   @if (results().length > 0 && isFocused()) {
@@ -10,6 +12,16 @@
           <h4>{{ location.country }}, {{ location.country_code }}, {{ location.timezone }} </h4>
         </div>
       }
+    </div>
+  }
+  @if (error() && isFocused()) {
+    <div class="results-dropdown">
+      <div class="items">
+        <div class="flex items-center gap-4">
+          <i class="pi pi-info-circle"></i>
+          <h3>No locations found for "{{ searchQuery() }}"</h3>
+        </div>
+      </div>
     </div>
   }
 </div>

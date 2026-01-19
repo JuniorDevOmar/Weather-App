@@ -86,3 +86,19 @@
     border-radius: 10px;
   }
 }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.error-shake {
+  border-color: $error-red !important;
+  animation: shake 0.5s ease-in-out;
+}
+
+.error-shake:focus {
+  border-color: $error-red !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.25);
+}
