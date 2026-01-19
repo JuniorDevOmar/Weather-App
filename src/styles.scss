@@ -1,12 +1,11 @@
+@use "styles/variables" as *;
+
 @import "tailwindcss";
 @import "primeicons/primeicons.css";
 /* You can add global styles to this file, and also import other style files */
 
 $horizontal-padding: 15%;
 $vertical-padding: 5%;
-$darkNavy: #0f2027;
-$mediumNavy: #203a43;
-$lightNavy: #2c5364;
 
 :root {
   scroll-behavior: smooth;

@@ -1,7 +1,7 @@
 <div class="search-box">
-  <input type="text" placeholder="Search City" class="form-control" required
+  <input type="text" pInputText placeholder="Enter City Name" class="form-control" required
          [(ngModel)]="searchQuery" name="searchQuery" (focus)="onFocus()" (blur)="onBlur()">
-  <span class="pi pi-search icon"></span>
+  <i class="icon" [ngClass]="loading() ? 'pi pi-spin pi-spinner' : 'pi pi-search'"></i>
   @if (results().length > 0 && isFocused()) {
     <div class="results-dropdown">
       @for (location of results(); track location.id) {

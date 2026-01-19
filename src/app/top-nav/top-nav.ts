@@ -18,17 +18,23 @@ export class TopNav {
   #router: Router = inject(Router);
   #service: WeatherInfo = inject(WeatherInfo);
   searchResults = signal<City[]>([]);
+  loading = signal(false);
 
   onSearch(query: string) {
+    this.loading.set(true);
     if (!query) {
       this.searchResults.set([]);
+      this.loading.set(false);
       return;
     }
-
     this.#service.getGeocodedInfo(query).pipe(
-    ).subscribe(res => {
-        this.searchResults.set([]);
-        this.searchResults().push(...res)
+    ).subscribe({
+        next: (city) => {
+          this.searchResults.set([]);
+          this.searchResults().push(...city)
+          this.loading.set(false);
+        },
+        error: () => this.loading.set(false),
       }
     );
   }
