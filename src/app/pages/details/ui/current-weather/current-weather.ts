@@ -1,6 +1,8 @@
 import {Component, computed, input, signal} from '@angular/core';
-import {CardUiComponent} from "../../../../shared/components/ui/card-ui-component/card-ui-component";
-import {DatePipe, NgOptimizedImage, NgStyle} from "@angular/common";
+import {
+  CardUiComponent
+} from "../../../../shared/components/ui/card-ui-component/card-ui-component";
+import {NgOptimizedImage, NgStyle} from "@angular/common";
 import {convertToKm, getTimestamp, getWindRotation} from '../../../../shared/utils/function.util';
 import {mapToWeatherIcon} from '../../../../shared/utils/icon.util';
 import {getWeatherDescription} from '../../../../shared/utils/description.util';
@@ -10,7 +12,6 @@ import {CurrentWeatherResponse} from '../../../../shared/model/current.weather.m
   selector: 'app-current-weather',
   imports: [
     CardUiComponent,
-    DatePipe,
     NgOptimizedImage,
     NgStyle
   ],
@@ -46,7 +47,7 @@ export class CurrentWeather {
   readonly relativeHumidityUnit = computed(() => this.currentWeather().current_units.relative_humidity_2m);
 
   readonly summary = computed(() => {
-    return 'Chance of rain: ' + this.rainChance() + '%'
+    return `Chance of rain: ${this.rainChance()}${this.rainUnit()}`;
   });
   protected readonly convertToKm = convertToKm;
   protected readonly mapToWeatherIcon = mapToWeatherIcon;

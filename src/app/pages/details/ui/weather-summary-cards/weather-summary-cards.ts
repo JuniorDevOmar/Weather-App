@@ -1,9 +1,10 @@
 import {Component, computed, input} from '@angular/core';
-import {CardUiComponent} from '../../../../shared/components/ui/card-ui-component/card-ui-component';
+import {
+  CardUiComponent
+} from '../../../../shared/components/ui/card-ui-component/card-ui-component';
 import {NgOptimizedImage} from '@angular/common';
 import {mapToIcon, mapUVIndexToIcon} from '../../../../shared/utils/icon.util';
 import {convertToKm} from '../../../../shared/utils/function.util';
-import {AirQualityResponse} from '../../../../shared/model/air.quality.model';
 import {CurrentWeatherResponse} from '../../../../shared/model/current.weather.model';
 
 @Component({
@@ -17,7 +18,6 @@ import {CurrentWeatherResponse} from '../../../../shared/model/current.weather.m
 })
 export class WeatherSummaryCards {
   currentWeather = input.required<CurrentWeatherResponse>();
-  airQuality = input.required<AirQualityResponse>();
 
   readonly relativeHumidity = computed(() => this.currentWeather().current.relative_humidity_2m);
   readonly relativeHumidityUnit = computed(() => this.currentWeather().current_units.relative_humidity_2m);
@@ -29,10 +29,7 @@ export class WeatherSummaryCards {
   readonly windGustsUnit = computed(() => this.currentWeather().current_units.wind_gusts_10m);
   readonly cloudCover = computed(() => this.currentWeather().current.cloud_cover);
   readonly cloudCoverUnit = computed(() => this.currentWeather().current_units.cloud_cover);
-  readonly uvIndex = computed(() => this.airQuality().current.uv_index);
-  readonly roundedUvIndex = computed(() => Math.round(this.uvIndex()));
 
   protected readonly mapToIcon = mapToIcon;
-  protected readonly mapUVIndexToIcon = mapUVIndexToIcon;
   protected readonly convertToKm = convertToKm;
 }

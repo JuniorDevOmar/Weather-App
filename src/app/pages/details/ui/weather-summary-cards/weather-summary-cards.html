@@ -1,15 +1,5 @@
 <div class="grid grid-cols-3 gap-6">
   <p>INSERT SUNRISE SUNSET THING</p>
-  <!--  TODO: maybe nuke UV when sun its not day anymore-->
-  <app-card-ui-component>
-    <div card-heading class="flex justify-center">
-      <h1>UV Index</h1>
-    </div>
-    <div card-body class="flex items-center">
-      <img ngSrc="{{mapUVIndexToIcon(roundedUvIndex())}}" width="75" height="75">
-      <p>{{ uvIndex() }}</p>
-    </div>
-  </app-card-ui-component>
   <app-card-ui-component>
     <div card-heading class="flex justify-center">
       <h1>Humidity</h1>

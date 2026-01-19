@@ -46,17 +46,11 @@ export class WeatherDetails {
     .pipe(filter(coords => coords.lat != null && coords.lng != null),
       switchMap(coords => this.#service.getHourlyWeatherInfo(coords.lat, coords.lng))
     );
-  readonly #airQuality$ = toObservable(this.#coordinates)
-    .pipe(
-      filter(coords => coords.lat != null && coords.lng != null),
-      switchMap(coords => this.#service.getAirQualityInfo(coords.lat, coords.lng))
-    );
 
   readonly currentWeather = toSignal(this.#currentWeather$, {initialValue: null});
   readonly hourlyWeather = toSignal(this.#hourlyWeather$, {initialValue: null});
-  readonly airQuality = toSignal(this.#airQuality$, {initialValue: null});
 
   readonly loading = computed(() =>
-    this.currentWeather() == null || this.hourlyWeather() == null || this.airQuality() == null
+    this.currentWeather() == null || this.hourlyWeather() == null
   );
 }
