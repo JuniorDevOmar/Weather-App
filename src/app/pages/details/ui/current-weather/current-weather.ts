@@ -1,10 +1,10 @@
 import {Component, computed, input, signal} from '@angular/core';
-import {CardUiComponent} from "../card-ui-component/card-ui-component";
+import {CardUiComponent} from "../../../../shared/components/ui/card-ui-component/card-ui-component";
 import {DatePipe, NgOptimizedImage, NgStyle} from "@angular/common";
-import {convertToKm, getTimestamp, getWindRotation} from '../../shared/function.util';
-import {mapToWeatherIcon} from '../../shared/icon.util';
-import {getWeatherDescription} from '../../shared/description.util';
-import {CurrentWeatherResponse} from '../../model/current.weather.model';
+import {convertToKm, getTimestamp, getWindRotation} from '../../../../shared/utils/function.util';
+import {mapToWeatherIcon} from '../../../../shared/utils/icon.util';
+import {getWeatherDescription} from '../../../../shared/utils/description.util';
+import {CurrentWeatherResponse} from '../../../../shared/model/current.weather.model';
 
 @Component({
   selector: 'app-current-weather',

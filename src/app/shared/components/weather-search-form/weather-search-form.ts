@@ -2,7 +2,7 @@ import {Component, computed, effect, input, output, signal} from '@angular/core'
 import {FormsModule} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, map, tap} from 'rxjs';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
-import {City} from '../model/geocode';
+import {City} from '../../model/geocode';
 import {InputText} from 'primeng/inputtext';
 import {NgClass} from '@angular/common';
 

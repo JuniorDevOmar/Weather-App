@@ -1,9 +1,9 @@
 import {Component, computed, input} from '@angular/core';
 import {NgOptimizedImage, NgStyle, NgTemplateOutlet} from '@angular/common';
-import {mapToIcon, mapToWeatherIcon} from '../../shared/icon.util';
-import {HourlyDataPoint} from '../../model/hourly.weather.model';
-import {getWeatherDescription} from '../../shared/description.util';
-import {getWindRotation} from '../../shared/function.util';
+import {mapToIcon, mapToWeatherIcon} from '../../../utils/icon.util';
+import {HourlyDataPoint} from '../../../model/hourly.weather.model';
+import {getWeatherDescription} from '../../../utils/description.util';
+import {getWindRotation} from '../../../utils/function.util';
 
 @Component({
   selector: 'app-carousel-ui-component',

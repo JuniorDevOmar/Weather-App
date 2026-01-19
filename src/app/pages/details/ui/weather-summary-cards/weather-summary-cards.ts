@@ -1,10 +1,10 @@
 import {Component, computed, input} from '@angular/core';
-import {CardUiComponent} from '../card-ui-component/card-ui-component';
+import {CardUiComponent} from '../../../../shared/components/ui/card-ui-component/card-ui-component';
 import {NgOptimizedImage} from '@angular/common';
-import {mapToIcon, mapUVIndexToIcon} from '../../shared/icon.util';
-import {convertToKm} from '../../shared/function.util';
-import {AirQualityResponse} from '../../model/air.quality.model';
-import {CurrentWeatherResponse} from '../../model/current.weather.model';
+import {mapToIcon, mapUVIndexToIcon} from '../../../../shared/utils/icon.util';
+import {convertToKm} from '../../../../shared/utils/function.util';
+import {AirQualityResponse} from '../../../../shared/model/air.quality.model';
+import {CurrentWeatherResponse} from '../../../../shared/model/current.weather.model';
 
 @Component({
   selector: 'app-weather-summary-cards',

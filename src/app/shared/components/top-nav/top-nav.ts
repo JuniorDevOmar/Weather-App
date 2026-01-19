@@ -1,8 +1,8 @@
 import {Component, inject, signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {WeatherSearchForm} from '../weather-search-form/weather-search-form';
-import {WeatherInfo} from '../services/weather-info';
-import {City} from '../model/geocode';
+import {WeatherInfo} from '../../services/weather-info';
+import {City} from '../../model/geocode';
 import {Router} from '@angular/router';
 
 @Component({

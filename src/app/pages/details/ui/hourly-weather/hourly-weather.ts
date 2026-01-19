@@ -1,9 +1,9 @@
 import {Component, computed, input} from '@angular/core';
-import {CardUiComponent} from '../card-ui-component/card-ui-component';
+import {CardUiComponent} from '../../../../shared/components/ui/card-ui-component/card-ui-component';
 import {Carousel, CarouselResponsiveOptions} from 'primeng/carousel';
-import {CarouselUiComponent} from '../carousel-ui-component/carousel-ui-component';
-import {HourlyWeatherResponse, transformHourlyData} from '../../model/hourly.weather.model';
-import {getTimestamp} from '../../shared/function.util';
+import {CarouselUiComponent} from '../../../../shared/components/ui/carousel-ui-component/carousel-ui-component';
+import {HourlyWeatherResponse, transformHourlyData} from '../../../../shared/model/hourly.weather.model';
+import {getTimestamp} from '../../../../shared/utils/function.util';
 
 @Component({
     selector: 'app-hourly-weather',

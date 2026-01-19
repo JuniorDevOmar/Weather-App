@@ -2,7 +2,7 @@ import {Component, computed, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {filter, map, switchMap} from 'rxjs';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
-import {WeatherInfo} from '../services/weather-info';
+import {WeatherInfo} from '../../../shared/services/weather-info';
 import {CurrentWeather} from '../ui/current-weather/current-weather';
 import {HourlyWeather} from '../ui/hourly-weather/hourly-weather';
 import {WeatherSummaryCards} from '../ui/weather-summary-cards/weather-summary-cards';
