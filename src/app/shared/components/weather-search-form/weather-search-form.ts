@@ -1,18 +1,14 @@
-import {Component, computed, effect, input, output, signal} from '@angular/core';
-import {FormsModule} from "@angular/forms";
-import {debounceTime, distinctUntilChanged, map, tap} from 'rxjs';
-import {toObservable, toSignal} from '@angular/core/rxjs-interop';
-import {City} from '../../model/geocode';
-import {InputText} from 'primeng/inputtext';
-import {NgClass} from '@angular/common';
+import { Component, computed, effect, input, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { City } from '../../model/geocode';
+import { InputText } from 'primeng/inputtext';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-weather-search-form',
-  imports: [
-    FormsModule,
-    InputText,
-    NgClass
-  ],
+  imports: [FormsModule, InputText, NgClass],
   templateUrl: './weather-search-form.html',
   styleUrl: './weather-search-form.scss',
 })
@@ -28,16 +24,16 @@ export class WeatherSearchForm {
   isFocused = signal<boolean>(false);
 
   error = computed(() => {
-    return this.hasSearched() && !this.loading() && this.results().length === 0
+    return this.hasSearched() && !this.loading() && this.results().length === 0;
   });
 
   debouncedSearchQuery = toSignal(
     toObservable(this.searchQuery).pipe(
-      tap(x => this.hasSearched.set(false)),
+      tap((x) => this.hasSearched.set(false)),
       debounceTime(500),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     ),
-    {initialValue: ''}
+    { initialValue: '' },
   );
 
   constructor() {
@@ -45,7 +41,7 @@ export class WeatherSearchForm {
       const query = this.debouncedSearchQuery();
       if (query) {
         this.hasSearched.set(true);
-        this.onSearch.emit(query)
+        this.onSearch.emit(query);
       } else {
         this.hasSearched.set(false);
         this.onSearch.emit('');

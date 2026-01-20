@@ -1,4 +1,4 @@
-import {WeatherResponse} from './current.weather.model';
+import { WeatherResponse } from './current.weather.model';
 
 export interface DailyWeatherUnits {
   time: string;

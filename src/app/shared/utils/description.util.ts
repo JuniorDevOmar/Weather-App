@@ -24,8 +24,8 @@ export function getWeatherDescription(weatherCode: number): string {
     86: 'Heavy snow showers',
     95: 'Thunderstorm',
     96: 'Thunderstorm with slight rain',
-    99: 'Thunderstorm with heavy hail'
+    99: 'Thunderstorm with heavy hail',
   };
 
-  return weatherMap[weatherCode] || 'unknown'
+  return weatherMap[weatherCode] || 'unknown';
 }

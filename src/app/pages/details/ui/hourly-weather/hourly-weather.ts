@@ -1,38 +1,38 @@
-import {Component, computed, input} from '@angular/core';
-import {CardUiComponent} from '../../../../shared/components/ui/card-ui-component/card-ui-component';
-import {Carousel, CarouselResponsiveOptions} from 'primeng/carousel';
-import {CarouselUiComponent} from '../../../../shared/components/ui/carousel-ui-component/carousel-ui-component';
-import {HourlyWeatherResponse, transformHourlyData} from '../../../../shared/model/hourly.weather.model';
-import {getTimestamp} from '../../../../shared/utils/function.util';
+import { Component, computed, input } from '@angular/core';
+import { CardUiComponent } from '../../../../shared/components/ui/card-ui-component/card-ui-component';
+import { Carousel, CarouselResponsiveOptions } from 'primeng/carousel';
+import { CarouselUiComponent } from '../../../../shared/components/ui/carousel-ui-component/carousel-ui-component';
+import {
+  HourlyWeatherResponse,
+  transformHourlyData,
+} from '../../../../shared/model/hourly.weather.model';
+import { getTimestamp } from '../../../../shared/utils/function.util';
 
 @Component({
-    selector: 'app-hourly-weather',
-    imports: [
-        CardUiComponent,
-        Carousel,
-        CarouselUiComponent
-    ],
-    templateUrl: './hourly-weather.html',
-    styleUrl: './hourly-weather.scss',
+  selector: 'app-hourly-weather',
+  imports: [CardUiComponent, Carousel, CarouselUiComponent],
+  templateUrl: './hourly-weather.html',
+  styleUrl: './hourly-weather.scss',
 })
 export class HourlyWeather {
-    hourlyWeather = input.required<HourlyWeatherResponse>();
-    hourlyDataPoints = computed(() => transformHourlyData(this.hourlyWeather()));
-    protected readonly getTimestamp = getTimestamp;
-    breakpoints = [{
-        breakpoint: '1536px',
-        numVisible: 4,
-        numScroll: 4
-    }, {
-        breakpoint: '1280px',
-        numVisible: 4,
-        numScroll: 4,
+  hourlyWeather = input.required<HourlyWeatherResponse>();
+  hourlyDataPoints = computed(() => transformHourlyData(this.hourlyWeather()));
+  protected readonly getTimestamp = getTimestamp;
+  breakpoints = [
+    {
+      breakpoint: '1536px',
+      numVisible: 4,
+      numScroll: 4,
     },
-        {
-            breakpoint: '1024px',
-            numVisible: 3,
-            numScroll: 3
-        }
-    ];
-
+    {
+      breakpoint: '1280px',
+      numVisible: 4,
+      numScroll: 4,
+    },
+    {
+      breakpoint: '1024px',
+      numVisible: 3,
+      numScroll: 3,
+    },
+  ];
 }

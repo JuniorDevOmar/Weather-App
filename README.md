@@ -37,6 +37,7 @@ This app uses the [Open-Meteo API](https://open-meteo.com/), a free weather API 
 ## Future Improvements
 
 - [ ] Ability to add favorite locations for quick access
+- [ ] Small AI Model for summary cards and description details
 - [ ] Unit preferences (Celsius/Fahrenheit)
 - [ ] Monthly Forecasts
 - [ ] Navigation to selected forecasts
@@ -50,7 +51,6 @@ This app uses the [Open-Meteo API](https://open-meteo.com/), a free weather API 
 
 - Weather data provided by [Open-Meteo](https://open-meteo.com/)
 - Weather icons by [Bas Milius - Meteocons](https://github.com/basmilius/weather-icons)
-- UI framework icons from [PrimeIcons](https://primeng.org/icons)
 - UI components from [PrimeNG](https://primeng.org/)
 
 ## To Run
@@ -58,7 +58,7 @@ This app uses the [Open-Meteo API](https://open-meteo.com/), a free weather API 
 Clone the repo and run the following in the base directory where the `compose.yaml` file is.
 
 ```bash
-docker compose up -d --build 
+docker compose up -d --build
 ```
 
 Verify that the service is up under the name `weather-app` using

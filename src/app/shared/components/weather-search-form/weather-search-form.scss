@@ -1,4 +1,4 @@
-@use "../../../../styles/variables" as *;
+@use '../../../../styles/variables' as *;
 
 .search-box {
   position: relative;
@@ -6,7 +6,7 @@
   align-items: center;
 
   input {
-    border: .1rem solid #ccc;
+    border: 0.1rem solid #ccc;
     border-radius: 5px;
     padding-left: 10%;
     padding-top: 2%;
@@ -18,7 +18,7 @@
     position: absolute;
     left: 10px;
     color: #6c757d;
-    pointer-events: none
+    pointer-events: none;
   }
 }
 
@@ -96,13 +96,21 @@
 }
 
 @keyframes shake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
-  10%, 30%, 50%, 70%, 90% {
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
     transform: translateX(-5px);
   }
-  20%, 40%, 60%, 80% {
+  20%,
+  40%,
+  60%,
+  80% {
     transform: translateX(5px);
   }
 }

@@ -11,11 +11,11 @@ export function mapToWeatherIcon(code: number, isDay: number) {
 
 export function mapToIcon(key: string) {
   const icons = {
-    'humidity': 'humidity.svg',
-    'cloudy': 'cloudy.svg',
-    'wind': 'wind.svg',
-    'thermometer': 'thermometer.svg',
-  } as { [key: string]: string; }
+    humidity: 'humidity.svg',
+    cloudy: 'cloudy.svg',
+    wind: 'wind.svg',
+    thermometer: 'thermometer.svg',
+  } as { [key: string]: string };
   return `${allIcons}/${icons[key] || 'clear-day.svg'}`;
 }
 
@@ -33,6 +33,6 @@ export function mapUVIndexToIcon(key: number) {
     9: 'uv-index-9.svg',
     10: 'uv-index-10.svg',
     11: 'uv-index-11.svg',
-  } as { [key: string]: string; }
+  } as { [key: string]: string };
   return `${allIcons}/${icons[key] || 'uv-index.svg'}`;
 }

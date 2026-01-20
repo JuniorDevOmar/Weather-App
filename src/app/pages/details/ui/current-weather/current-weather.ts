@@ -1,25 +1,19 @@
-import {Component, computed, input, signal} from '@angular/core';
-import {
-  CardUiComponent
-} from "../../../../shared/components/ui/card-ui-component/card-ui-component";
-import {NgOptimizedImage, NgStyle} from "@angular/common";
-import {convertToKm, getTimestamp, getWindRotation} from '../../../../shared/utils/function.util';
-import {mapToWeatherIcon} from '../../../../shared/utils/icon.util';
-import {getWeatherDescription} from '../../../../shared/utils/description.util';
-import {CurrentWeatherResponse} from '../../../../shared/model/current.weather.model';
+import { Component, computed, input, signal } from '@angular/core';
+import { CardUiComponent } from '../../../../shared/components/ui/card-ui-component/card-ui-component';
+import { NgOptimizedImage, NgStyle } from '@angular/common';
+import { convertToKm, getTimestamp, getWindRotation } from '../../../../shared/utils/function.util';
+import { mapToWeatherIcon } from '../../../../shared/utils/icon.util';
+import { getWeatherDescription } from '../../../../shared/utils/description.util';
+import { CurrentWeatherResponse } from '../../../../shared/model/current.weather.model';
 
 @Component({
   selector: 'app-current-weather',
-  imports: [
-    CardUiComponent,
-    NgOptimizedImage,
-    NgStyle
-  ],
+  imports: [CardUiComponent, NgOptimizedImage, NgStyle],
   templateUrl: './current-weather.html',
   styleUrl: './current-weather.scss',
 })
 export class CurrentWeather {
-  location = input.required<{ country: string, city: string }>();
+  location = input.required<{ country: string; city: string }>();
   locationDetails = computed(() => {
     return `${this.location().city}, ${this.location().country}`;
   });
@@ -30,9 +24,15 @@ export class CurrentWeather {
   });
   readonly isDay = computed(() => this.currentWeather().current.is_day);
   readonly weatherCode = computed(() => this.currentWeather().current.weather_code);
-  readonly currentTemperature = computed(() => Math.round(this.currentWeather().current.temperature_2m));
-  readonly apparentTemperature = computed(() => Math.round(this.currentWeather().current.apparent_temperature));
-  readonly currentTemperatureUnit = computed(() => this.currentWeather().current_units.temperature_2m);
+  readonly currentTemperature = computed(() =>
+    Math.round(this.currentWeather().current.temperature_2m),
+  );
+  readonly apparentTemperature = computed(() =>
+    Math.round(this.currentWeather().current.apparent_temperature),
+  );
+  readonly currentTemperatureUnit = computed(
+    () => this.currentWeather().current_units.temperature_2m,
+  );
   readonly windSpeed = computed(() => this.currentWeather().current.wind_speed_10m);
   readonly windSpeedUnit = computed(() => this.currentWeather().current_units.wind_speed_10m);
   readonly windSpeedDirection = computed(() => this.currentWeather().current.wind_direction_10m);
@@ -45,7 +45,9 @@ export class CurrentWeather {
   readonly visibility = computed(() => this.currentWeather().current.visibility);
   readonly visibilityUnit = computed(() => this.currentWeather().current_units.visibility);
   readonly relativeHumidity = computed(() => this.currentWeather().current.relative_humidity_2m);
-  readonly relativeHumidityUnit = computed(() => this.currentWeather().current_units.relative_humidity_2m);
+  readonly relativeHumidityUnit = computed(
+    () => this.currentWeather().current_units.relative_humidity_2m,
+  );
 
   readonly summary = computed(() => {
     return `Chance of rain: ${this.rainChance()}${this.rainUnit()}`;

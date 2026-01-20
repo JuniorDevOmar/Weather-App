@@ -10,8 +10,8 @@ export function getTimestamp(time: string) {
 
 export function getWindRotation(direction: number) {
   return {
-    'transform': `rotate(${direction}deg)`,
-    'display': 'inline-block',
-    'transition': 'transform 0.5s ease'
+    transform: `rotate(${direction}deg)`,
+    display: 'inline-block',
+    transition: 'transform 0.5s ease',
   };
 }

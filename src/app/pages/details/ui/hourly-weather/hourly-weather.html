@@ -5,10 +5,18 @@
     </div>
   </div>
   <div card-body>
-    <p-carousel [value]="hourlyDataPoints()" [numVisible]="6" [numScroll]="6" [circular]="false" [responsiveOptions]="breakpoints">
+    <p-carousel
+      [value]="hourlyDataPoints()"
+      [numVisible]="6"
+      [numScroll]="6"
+      [circular]="false"
+      [responsiveOptions]="breakpoints"
+    >
       <ng-template let-hourlyDataPoint #item>
-        <app-carousel-ui-component [timestamp]="getTimestamp(hourlyDataPoint.time)"
-                                   [data]="hourlyDataPoint"/>
+        <app-carousel-ui-component
+          [timestamp]="getTimestamp(hourlyDataPoint.time)"
+          [data]="hourlyDataPoint"
+        />
       </ng-template>
     </p-carousel>
   </div>

@@ -1,16 +1,13 @@
-import {Component, inject, signal} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {WeatherSearchForm} from '../weather-search-form/weather-search-form';
-import {WeatherInfo} from '../../services/weather-info';
-import {City} from '../../model/geocode';
-import {Router} from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { WeatherSearchForm } from '../weather-search-form/weather-search-form';
+import { WeatherInfo } from '../../services/weather-info';
+import { City } from '../../model/geocode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-nav',
-  imports: [
-    FormsModule,
-    WeatherSearchForm
-  ],
+  imports: [FormsModule, WeatherSearchForm],
   templateUrl: './top-nav.html',
   styleUrl: './top-nav.scss',
 })
@@ -27,27 +24,30 @@ export class TopNav {
       this.loading.set(false);
       return;
     }
-    this.#service.getGeocodedInfo(query).pipe(
-    ).subscribe({
+    this.#service
+      .getGeocodedInfo(query)
+      .pipe()
+      .subscribe({
         next: (city) => {
           this.searchResults.set([]);
-          this.searchResults().push(...city)
+          this.searchResults().push(...city);
           this.loading.set(false);
         },
         error: () => this.loading.set(false),
-      }
-    );
+      });
   }
 
   onSelected(city: City) {
-    this.#router.navigate(['/weather'], {
-      queryParams: {
-        city: city.name,
-        country: city.country,
-        latitude: city.latitude,
-        longitude: city.longitude
-      }
-    }).then();
+    this.#router
+      .navigate(['/weather'], {
+        queryParams: {
+          city: city.name,
+          country: city.country,
+          latitude: city.latitude,
+          longitude: city.longitude,
+        },
+      })
+      .then();
   }
 
   navigateHome() {

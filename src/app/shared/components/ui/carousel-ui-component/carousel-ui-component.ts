@@ -1,24 +1,20 @@
-import {Component, computed, input} from '@angular/core';
-import {NgOptimizedImage, NgStyle, NgTemplateOutlet} from '@angular/common';
-import {mapToIcon, mapToWeatherIcon} from '../../../utils/icon.util';
-import {HourlyDataPoint} from '../../../model/hourly.weather.model';
-import {getWeatherDescription} from '../../../utils/description.util';
-import {getWindRotation} from '../../../utils/function.util';
+import { Component, computed, input } from '@angular/core';
+import { NgOptimizedImage, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { mapToIcon, mapToWeatherIcon } from '../../../utils/icon.util';
+import { HourlyDataPoint } from '../../../model/hourly.weather.model';
+import { getWeatherDescription } from '../../../utils/description.util';
+import { getWindRotation } from '../../../utils/function.util';
 
 @Component({
   selector: 'app-carousel-ui-component',
-  imports: [
-    NgOptimizedImage,
-    NgTemplateOutlet,
-    NgStyle
-  ],
+  imports: [NgOptimizedImage, NgTemplateOutlet, NgStyle],
   templateUrl: './carousel-ui-component.html',
   styleUrl: './carousel-ui-component.scss',
 })
 export class CarouselUiComponent {
   timestamp = input.required<string>();
   data = input.required<HourlyDataPoint>();
-  windUnit = computed(() => this.data().windSpeedUnit)
+  windUnit = computed(() => this.data().windSpeedUnit);
   /*
   DERIVED STATE
    */

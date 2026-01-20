@@ -14,7 +14,7 @@ export interface CurrentWeatherUnits {
   temperature_2m: string;
   relative_humidity_2m: string;
   dew_point_2m: string;
-  visibility: string
+  visibility: string;
   apparent_temperature: string;
   is_day: string;
   precipitation: string;

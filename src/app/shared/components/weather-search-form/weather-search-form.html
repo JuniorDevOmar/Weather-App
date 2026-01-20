@@ -1,16 +1,27 @@
 <div class="search-box">
-  <input type="text"
-         [class.error-shake]="error()"
-         pInputText placeholder="Enter City Name" class="form-control" required
-         [(ngModel)]="searchQuery" name="searchQuery" (focus)="onFocus()" (blur)="onBlur()">
-  <i class="icon" [class.error-shake]="error()"
-     [ngClass]="loading() ? 'pi pi-spin pi-spinner' : 'pi pi-search'"></i>
+  <input
+    type="text"
+    [class.error-shake]="error()"
+    pInputText
+    placeholder="Enter City Name"
+    class="form-control"
+    required
+    [(ngModel)]="searchQuery"
+    name="searchQuery"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+  />
+  <i
+    class="icon"
+    [class.error-shake]="error()"
+    [ngClass]="loading() ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
+  ></i>
   @if (results().length > 0 && isFocused()) {
     <div class="results-dropdown">
       @for (location of results(); track location.id) {
         <div class="items" (mousedown)="onSelect(location)">
           <h3>{{ location.name }}</h3>
-          <h4>{{ location.country }}, {{ location.country_code }}, {{ location.timezone }} </h4>
+          <h4>{{ location.country }}, {{ location.country_code }}, {{ location.timezone }}</h4>
         </div>
       }
     </div>
