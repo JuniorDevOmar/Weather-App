@@ -1,26 +1,44 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { CardUiComponent } from '../../../../shared/components/ui/card-ui-component/card-ui-component';
-import { NgOptimizedImage, NgStyle } from '@angular/common';
-import { convertToKm, getTimestamp, getWindRotation } from '../../../../shared/utils/function.util';
+import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
+import { convertToKm, getWindRotation } from '../../../../shared/utils/function.util';
 import { mapToWeatherIcon } from '../../../../shared/utils/icon.util';
 import { getWeatherDescription } from '../../../../shared/utils/description.util';
 import { CurrentWeatherResponse } from '../../../../shared/model/current.weather.model';
 
 @Component({
   selector: 'app-current-weather',
-  imports: [CardUiComponent, NgOptimizedImage, NgStyle],
+  imports: [CardUiComponent, NgOptimizedImage, NgStyle, NgClass],
   templateUrl: './current-weather.html',
   styleUrl: './current-weather.scss',
 })
 export class CurrentWeather {
   location = input.required<{ country: string; city: string }>();
+  refresh = output<void>();
+
   locationDetails = computed(() => {
     return `${this.location().city}, ${this.location().country}`;
   });
   currentWeather = input.required<CurrentWeatherResponse>();
   readonly timestamp = computed(() => {
-    const time = this.currentWeather().current.time;
-    return getTimestamp(time);
+    const data = this.currentWeather();
+
+    const timeString = data.current.time;
+    const offsetSec = data.utc_offset_seconds;
+
+    const absOffset = Math.abs(offsetSec);
+    const hours = Math.floor(absOffset / 3600)
+      .toString()
+      .padStart(2, '0');
+    const minutes = Math.floor((absOffset % 3600) / 60)
+      .toString()
+      .padStart(2, '0');
+    const sign = offsetSec >= 0 ? '+' : '-';
+    const offsetString = `${sign}${hours}:${minutes}`;
+
+    const fullIso = `${timeString}${offsetString}`;
+    const time = new Date(fullIso).toLocaleTimeString();
+    return time.slice(0, time.lastIndexOf(':'));
   });
   readonly isDay = computed(() => this.currentWeather().current.is_day);
   readonly weatherCode = computed(() => this.currentWeather().current.weather_code);
@@ -56,4 +74,8 @@ export class CurrentWeather {
   protected readonly mapToWeatherIcon = mapToWeatherIcon;
   protected readonly getWindRotation = getWindRotation;
   protected readonly getWeatherDescription = getWeatherDescription;
+
+  public onRefresh() {
+    this.refresh.emit();
+  }
 }

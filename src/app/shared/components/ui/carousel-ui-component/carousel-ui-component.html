@@ -18,7 +18,7 @@
       <img ngSrc="{{ mapToIcon('thermometer') }}" width="50" height="50" />
       <p style="font-size: 12px">{{ apparentTemperature() }} {{ temperatureUnit() }}</p>
     </div>
-    <div class="flex items-center gap-1">
+    <div class="flex items-center gap-1 max-md:hidden">
       <img ngSrc="{{ mapToIcon('wind') }}" width="50" height="50" />
       <p style="font-size: 12px">{{ windSpeed() }} {{ windUnit() }}</p>
       <i

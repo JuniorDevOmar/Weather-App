@@ -2,10 +2,10 @@ import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { WeatherInfo } from '../../../shared/services/weather-info';
 import { CurrentWeather } from '../ui/current-weather/current-weather';
 import { HourlyWeather } from '../ui/hourly-weather/hourly-weather';
 import { DailyWeather } from '../ui/daily-weather/daily-weather';
+import { LocationService } from '../../../shared/services/location-service';
 
 @Component({
   selector: 'app-weather-details',
@@ -15,7 +15,7 @@ import { DailyWeather } from '../ui/daily-weather/daily-weather';
 })
 export class WeatherDetails {
   readonly #route = inject(ActivatedRoute);
-  readonly #service = inject(WeatherInfo);
+  readonly #locationService = inject(LocationService);
   readonly #city$ = this.#route.queryParamMap.pipe(
     map((params) => params.get('city')),
     filter((x) => x != null),
@@ -41,26 +41,41 @@ export class WeatherDetails {
   readonly #latitude = toSignal(this.#latitude$, { initialValue: '' });
   readonly #longitude = toSignal(this.#longitude$, { initialValue: '' });
   readonly #coordinates = computed(() => ({ lat: this.#latitude(), lng: this.#longitude() }));
+  readonly #coordinates$ = toObservable(this.#coordinates);
 
-  readonly #currentWeather$ = toObservable(this.#coordinates).pipe(
-    filter((coords) => coords.lat != null && coords.lng != null),
-    switchMap((coords) => this.#service.getCurrentWeatherInfo(coords.lat, coords.lng)),
+  readonly #currentWeather$ = this.#locationService.trigger$.pipe(
+    switchMap(() =>
+      this.#coordinates$.pipe(
+        filter((coords) => coords.lat != null && coords.lng != null),
+        switchMap((coords) => this.#locationService.getCurrentWeather(coords.lat, coords.lng)),
+      ),
+    ),
   );
-  readonly #hourlyWeather$ = toObservable(this.#coordinates).pipe(
-    filter((coords) => coords.lat != null && coords.lng != null),
-    switchMap((coords) => this.#service.getHourlyWeatherInfo(coords.lat, coords.lng)),
+
+  readonly #hourlyWeather$ = this.#locationService.trigger$.pipe(
+    switchMap(() =>
+      this.#coordinates$.pipe(
+        filter((coords) => coords.lat != null && coords.lng != null),
+        switchMap((coords) => this.#locationService.getHourlyWeather(coords.lat, coords.lng)),
+      ),
+    ),
   );
-  readonly #dailyWeather$ = toObservable(this.#coordinates).pipe(
-    filter((coords) => coords.lat != null && coords.lng != null),
-    switchMap((coords) => this.#service.getDailyWeatherInfo(coords.lat, coords.lng)),
+  readonly #dailyWeather$ = this.#locationService.trigger$.pipe(
+    switchMap(() =>
+      this.#coordinates$.pipe(
+        filter((coords) => coords.lat != null && coords.lng != null),
+        switchMap((coords) => this.#locationService.getDailyWeather(coords.lat, coords.lng)),
+      ),
+    ),
   );
 
   readonly currentWeather = toSignal(this.#currentWeather$, { initialValue: null });
   readonly hourlyWeather = toSignal(this.#hourlyWeather$, { initialValue: null });
   readonly dailyWeather = toSignal(this.#dailyWeather$, { initialValue: null });
 
-  readonly loading = computed(
-    () =>
-      this.currentWeather() == null || this.hourlyWeather() == null || this.dailyWeather() == null,
-  );
+  readonly loading = this.#locationService.loading;
+
+  onRefresh() {
+    this.#locationService.refresh();
+  }
 }

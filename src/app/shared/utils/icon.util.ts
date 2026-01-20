@@ -1,4 +1,3 @@
-//TODO: complete mappings; clean up and only include used assets
 const allIcons = `./assets/weather-icons/weather-icons-master/production/fill/all`;
 const openWeatherIcons = `./assets/weather-icons/weather-icons-master/production/fill/openweathermap`;
 

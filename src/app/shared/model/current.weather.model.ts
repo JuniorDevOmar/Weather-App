@@ -32,6 +32,7 @@ export interface CurrentWeatherUnits {
 
 export interface CurrentWeather {
   time: string;
+  utc_offset_seconds: number;
   interval: number;
   temperature_2m: number;
   relative_humidity_2m: number;

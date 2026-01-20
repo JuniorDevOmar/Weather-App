@@ -1,13 +1,13 @@
-import { Component, computed, input, Input } from '@angular/core';
+import {Component, computed, input} from '@angular/core';
 import {
   DailyWeatherResponse,
   transformDailyData,
 } from '../../../../shared/model/daily.weather.model';
-import { TableModule } from 'primeng/table';
-import { mapToWeatherIcon } from '../../../../shared/utils/icon.util';
-import { NgOptimizedImage } from '@angular/common';
-import { getWeatherDescription } from '../../../../shared/utils/description.util';
-import { getTimestamp } from '../../../../shared/utils/function.util';
+import {TableModule} from 'primeng/table';
+import {mapToWeatherIcon} from '../../../../shared/utils/icon.util';
+import {NgOptimizedImage} from '@angular/common';
+import {getWeatherDescription} from '../../../../shared/utils/description.util';
+import {getTimestamp} from '../../../../shared/utils/function.util';
 
 @Component({
   selector: 'app-daily-weather',

@@ -38,6 +38,7 @@ This app uses the [Open-Meteo API](https://open-meteo.com/), a free weather API 
 
 - [ ] Ability to add favorite locations for quick access
 - [ ] Small AI Model for summary cards and description details
+- [ ] An auto refresh in the interval(15 minutes) specified by the API
 - [ ] Unit preferences (Celsius/Fahrenheit)
 - [ ] Monthly Forecasts
 - [ ] Navigation to selected forecasts

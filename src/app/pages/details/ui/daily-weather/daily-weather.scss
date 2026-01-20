@@ -1,0 +1,33 @@
+.table-text {
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+td:first-child {
+  width: 20%;
+}
+
+@media (max-width: 768px) {
+  td:first-child {
+    width: 30%;
+  }
+
+  .table-text {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-text {
+    font-size: 0.75rem;
+    white-space: normal;
+    display: block;
+    line-height: 1.2;
+  }
+}

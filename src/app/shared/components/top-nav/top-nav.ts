@@ -4,6 +4,7 @@ import { WeatherSearchForm } from '../weather-search-form/weather-search-form';
 import { WeatherInfo } from '../../services/weather-info';
 import { City } from '../../model/geocode';
 import { Router } from '@angular/router';
+import { LocationService } from '../../services/location-service';
 
 @Component({
   selector: 'app-top-nav',
@@ -14,13 +15,14 @@ import { Router } from '@angular/router';
 export class TopNav {
   #router: Router = inject(Router);
   #service: WeatherInfo = inject(WeatherInfo);
+  #locationService = inject(LocationService);
   searchResults = signal<City[]>([]);
   loading = signal(false);
 
   onSearch(query: string) {
+    this.searchResults.set([]);
     this.loading.set(true);
     if (!query) {
-      this.searchResults.set([]);
       this.loading.set(false);
       return;
     }
@@ -29,7 +31,6 @@ export class TopNav {
       .pipe()
       .subscribe({
         next: (city) => {
-          this.searchResults.set([]);
           this.searchResults().push(...city);
           this.loading.set(false);
         },
@@ -38,6 +39,7 @@ export class TopNav {
   }
 
   onSelected(city: City) {
+    this.searchResults.set([]);
     this.#router
       .navigate(['/weather'], {
         queryParams: {

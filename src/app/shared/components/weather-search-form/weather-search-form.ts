@@ -14,7 +14,6 @@ import { NgClass } from '@angular/common';
 })
 export class WeatherSearchForm {
   results = input.required<City[]>();
-  noResults = input(false);
   loading = input.required<boolean>();
   onSearch = output<string>();
   onSelected = output<City>();
