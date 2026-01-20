@@ -68,7 +68,10 @@ Verify that the service is up under the name `weather-app` using
 docker ps
 ```
 
-Once complete, run stop the service:
+Navigate to `localhost:1151` on your browser to begin usage.
+- The port number was a random one. Don't think too much about it (～￣▽￣)～
+
+Once complete, stop the service:
 
 ```bash
 docker compose down
